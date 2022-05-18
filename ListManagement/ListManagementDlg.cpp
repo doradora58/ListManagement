@@ -109,6 +109,7 @@ BOOL CListManagementDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// 小さいアイコンの設定
 
 	// TODO: 初期化をここに追加します。
+	OnShowWindow();
 
 	return TRUE;  // フォーカスをコントロールに設定した場合を除き、TRUE を返します。
 }
@@ -162,6 +163,24 @@ HCURSOR CListManagementDlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
+// 初期値の設定(アプリ起動時に実行）
+void CListManagementDlg::OnShowWindow()
+{
+	// 実行ファイルのパス
+	CString modulePath = _T("");
+	// ドライブ名、ディレクトリ名、ファイル名、拡張子
+	wchar_t path[_MAX_PATH], drive[_MAX_PATH], dir[_MAX_PATH], fname[_MAX_PATH], ext[_MAX_PATH];
+
+	// 実行ファイルのファイルパスを取得
+	if (::GetModuleFileName(NULL, path, _MAX_PATH) != 0)
+	{
+		// ファイルパスを分割
+		::_wsplitpath_s(path, drive, dir, fname, ext);
+		// ドライブとディレクトリ名を結合して実行ファイルパスとする
+		modulePath = CString(drive) + CString(dir) ;
+	}
+	//this->ReadPath.SetWindowText();
+}
 
 // CSV読み取り関数の実行
 void CListManagementDlg::OnBnClickedButton1()
