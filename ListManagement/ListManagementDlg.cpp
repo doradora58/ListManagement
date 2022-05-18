@@ -165,6 +165,8 @@ HCURSOR CListManagementDlg::OnQueryDragIcon()
 void CListManagementDlg::OnBnClickedButton1()
 {
 	// TODO: ここにコントロール通知ハンドラー コードを追加します。
+	CString csReadPath;
+
 }
 
 // CSV書き込み関数の実行
