@@ -64,6 +64,7 @@ void CListManagementDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_EDIT5, ReadResult);
 	DDX_Control(pDX, IDC_EDIT3, WritePath);
 	DDX_Control(pDX, IDC_EDIT6, ResultWrite);
+	DDX_Control(pDX, IDC_EDIT4, FileName);
 }
 
 BEGIN_MESSAGE_MAP(CListManagementDlg, CDialogEx)
@@ -173,13 +174,23 @@ void CListManagementDlg::OnBnClickedButton1()
 void CListManagementDlg::OnBnClickedButton2()
 {
 	// TODO: ここにコントロール通知ハンドラー コードを追加します。
-	CString csWritePath;
+
 	// 書き込みパスの取得
+	CString csWritePath;
 	this->WritePath.GetWindowText(csWritePath);
 	TCHAR* cWritePath = csWritePath.GetBuffer();
 
+	// 書き込み用ファイル名の取得
+	CString csFileName;
+	this->FileName.GetWindowText(csFileName);
+	TCHAR* cFileName = csFileName.GetBuffer();
+
 	// コンストラクタの生成
-	CWriteFile::CWriteFile(cWritePath);
+	CWriteFile(cWritePath,cFileName);
+
+	// CSVの書き出し
+
+
 
 
 }
