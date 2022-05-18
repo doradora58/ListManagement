@@ -31,4 +31,15 @@ protected:
 	afx_msg void OnPaint();
 	afx_msg HCURSOR OnQueryDragIcon();
 	DECLARE_MESSAGE_MAP()
+public:
+	afx_msg void OnBnClickedButton1();
+	afx_msg void OnBnClickedButton2();
+	// 読み取るCSVのパス
+	CEdit ReadPath;
+	// 結果（CSV読み取り関数の返り値）
+	CEdit ReadResult;
+	// CSVを書きこ出すパス
+	CEdit WritePath;
+	// 結果（書き込み関数の返り値）
+	CEdit ResultWrite;
 };

@@ -59,12 +59,18 @@ CListManagementDlg::CListManagementDlg(CWnd* pParent /*=nullptr*/)
 void CListManagementDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
+	DDX_Control(pDX, IDC_EDIT1, ReadPath);
+	DDX_Control(pDX, IDC_EDIT5, ReadResult);
+	DDX_Control(pDX, IDC_EDIT3, WritePath);
+	DDX_Control(pDX, IDC_EDIT6, ResultWrite);
 }
 
 BEGIN_MESSAGE_MAP(CListManagementDlg, CDialogEx)
 	ON_WM_SYSCOMMAND()
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
+	ON_BN_CLICKED(IDC_BUTTON1, &CListManagementDlg::OnBnClickedButton1)
+	ON_BN_CLICKED(IDC_BUTTON2, &CListManagementDlg::OnBnClickedButton2)
 END_MESSAGE_MAP()
 
 
@@ -153,3 +159,15 @@ HCURSOR CListManagementDlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
+
+// CSV読み取り関数の実行
+void CListManagementDlg::OnBnClickedButton1()
+{
+	// TODO: ここにコントロール通知ハンドラー コードを追加します。
+}
+
+// CSV書き込み関数の実行
+void CListManagementDlg::OnBnClickedButton2()
+{
+	// TODO: ここにコントロール通知ハンドラー コードを追加します。
+}
