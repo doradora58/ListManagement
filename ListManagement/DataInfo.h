@@ -25,6 +25,7 @@ public:
 
 class CDataInfo
 {
+public:
 	/// <summary>
 	/// コンストラクタ
 	/// </summary>
@@ -35,6 +36,14 @@ class CDataInfo
 	/// デストラクタ
 	/// </summary>
 	~CDataInfo();
+
+
+
+	// **********メンバ変数**********
+	CString m_csReadPath; // 読み込むファイルの完全パス
+	
+	CString m_csWritePath; // ファイル出力先親フォルダパス
+	CString m_csFileName; // ファイル出力先ファイル名
 
 
 };

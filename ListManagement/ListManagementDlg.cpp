@@ -176,6 +176,8 @@ void CListManagementDlg::OnBnClickedButton2()
 	this->WritePath.GetWindowText(csWritePath);
 	TCHAR* cWritePath = csWritePath.GetBuffer();
 
-	WriteFile();
+	// コンストラクタの生成
+	CWriteFile::CWriteFile(cWritePath);
+
 
 }
