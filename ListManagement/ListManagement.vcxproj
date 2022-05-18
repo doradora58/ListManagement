@@ -194,6 +194,7 @@
     <ClInclude Include="WriteFile.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Document.cpp" />
     <ClCompile Include="ListManagement.cpp" />
     <ClCompile Include="ListManagementDlg.cpp" />
     <ClCompile Include="pch.cpp">

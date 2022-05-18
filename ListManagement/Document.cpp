@@ -1,17 +1,19 @@
 #include "pch.h"
-#include "WriteFile.h"
+#include "Document.h"
+
+
 
 /// <summary>
 /// コンストラクタ
 /// </summary>
-CWriteFile::CWriteFile()
+CDataInfo::CDataInfo()
 {
 
 }
 
 /// <summary>
-/// デスストラクタ
+/// デストラクタ
 /// </summary>
-CWriteFile::~CWriteFile()
+CDataInfo::~CDataInfo()
 {
 }

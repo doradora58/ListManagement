@@ -7,6 +7,7 @@
 #include "ListManagement.h"
 #include "ListManagementDlg.h"
 #include "afxdialogex.h"
+#include "WriteFile.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -170,4 +171,11 @@ void CListManagementDlg::OnBnClickedButton1()
 void CListManagementDlg::OnBnClickedButton2()
 {
 	// TODO: ここにコントロール通知ハンドラー コードを追加します。
+	CString csWritePath;
+	// 書き込みパスの取得
+	this->WritePath.GetWindowText(csWritePath);
+	TCHAR* cWritePath = csWritePath.GetBuffer();
+
+	WriteFile();
+
 }
