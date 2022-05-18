@@ -20,7 +20,6 @@ public:
 	int nHeight; // 身長
 	int nWeight; // 体重
 	CString csPlace; // 出身地
-
 };
 
 class CDataInfo
