@@ -42,4 +42,6 @@ public:
 	CEdit WritePath;
 	// 結果（書き込み関数の返り値）
 	CEdit ResultWrite;
+	// ファイル書き出しようのファイル名
+	CEdit FileName;
 };
