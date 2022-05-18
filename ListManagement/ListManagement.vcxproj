@@ -183,7 +183,7 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Document.h" />
+    <ClInclude Include="DataInfo.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="ListManagement.h" />
     <ClInclude Include="ListManagementDlg.h" />
@@ -194,7 +194,7 @@
     <ClInclude Include="WriteFile.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Document.cpp" />
+    <ClCompile Include="DataInfo.cpp" />
     <ClCompile Include="ListManagement.cpp" />
     <ClCompile Include="ListManagementDlg.cpp" />
     <ClCompile Include="pch.cpp">
