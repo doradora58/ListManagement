@@ -1,5 +1,7 @@
 #include "pch.h"
 #include "WriteFile.h"
+#include "DataInfo.h"
+#include "ReadFile.h"
 
 /// <summary>
 /// コンストラクタ
@@ -9,6 +11,7 @@ CWriteFile::CWriteFile(wchar_t cWritePath[MAX_PATH],wchar_t cFileName[_MAX_FNAME
 {
 
 	m_csWritePath = cWritePath;
+	m_csFileName = cFileName;
 
 }
 

@@ -38,4 +38,6 @@ public:
 	~CDataInfo();
 
 
+	TDataInfo m_tDataInfo;
+
 };

@@ -32,6 +32,7 @@ protected:
 	afx_msg HCURSOR OnQueryDragIcon();
 	DECLARE_MESSAGE_MAP()
 public:
+	afx_msg void OnShowWindow();
 	afx_msg void OnBnClickedButton1();
 	afx_msg void OnBnClickedButton2();
 	// 読み取るCSVのパス
@@ -42,6 +43,6 @@ public:
 	CEdit WritePath;
 	// 結果（書き込み関数の返り値）
 	CEdit ResultWrite;
-	// ファイル書き出しようのファイル名
+	// 書き出すCSVファイル名
 	CEdit FileName;
 };
