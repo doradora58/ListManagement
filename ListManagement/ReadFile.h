@@ -14,4 +14,10 @@ public:
 	/// </summary>
 	~CReadFile();
 
+
+
+	// **********メンバ変数**********
+
+	CString m_csReadPath; // 読み込むファイルの完全パス
+
 };
