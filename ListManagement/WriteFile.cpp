@@ -33,5 +33,6 @@ CWriteFile::~CWriteFile()
 int CWriteFile::WriteCsvText(wchar_t cWritePath[MAX_PATH], wchar_t cFileName[_MAX_FNAME], wchar_t cText[MAX_TEXT])
 {
 
+
 	return 0;
 }
