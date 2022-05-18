@@ -183,6 +183,7 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Document.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="ListManagement.h" />
     <ClInclude Include="ListManagementDlg.h" />
