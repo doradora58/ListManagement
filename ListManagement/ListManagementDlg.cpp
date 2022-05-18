@@ -12,6 +12,7 @@
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
+#include "ReadFile.h"
 
 
 // アプリケーションのバージョン情報に使われる CAboutDlg ダイアログ
@@ -166,7 +167,14 @@ HCURSOR CListManagementDlg::OnQueryDragIcon()
 void CListManagementDlg::OnBnClickedButton1()
 {
 	// TODO: ここにコントロール通知ハンドラー コードを追加します。
+	
+	// 読み込みパスの取得
 	CString csReadPath;
+	this->ReadPath.GetWindowText(csReadPath);
+	TCHAR* cReadPath = csReadPath.GetBuffer();
+	CReadFile a;
+
+	a.ReadFileData(cReadPath);
 
 }
 
