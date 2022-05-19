@@ -176,10 +176,17 @@ void CListManagementDlg::OnShowWindow()
 	{
 		// ファイルパスを分割
 		::_wsplitpath_s(path, drive, dir, fname, ext);
-		// ドライブとディレクトリ名を結合して実行ファイルパスとする
-		modulePath = CString(drive) + CString(dir) ;
+
+		CString dir2 = dir;
+
+		// どこからフォルダー構成をコピーするか。
+		CString root = _T("ListManagement");
+
+		modulePath = CString(drive) + dir2.Left(_tcsclen(dir2) - dir2.Find(root))+_T("Document\\Input\\Data.csv");
 	}
-	//this->ReadPath.SetWindowText();
+	this->ReadPath.SetWindowText(modulePath);
+
+
 }
 
 // CSV読み取り関数の実行
