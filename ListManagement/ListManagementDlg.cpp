@@ -166,8 +166,12 @@ HCURSOR CListManagementDlg::OnQueryDragIcon()
 // 初期値の設定(アプリ起動時に実行）
 void CListManagementDlg::OnShowWindow()
 {
-	// 実行ファイルのパス
-	CString modulePath = _T("");
+	// 読み込み用CSVファイルのパス
+	CString csReadPath;
+	// 書き出し用ファイルのパス
+	CString csWritePath;
+	// 書き出し用CSVのファイル名
+	CString csFileName=_T("OutputData.csv");
 	// ドライブ名、ディレクトリ名、ファイル名、拡張子
 	wchar_t path[_MAX_PATH], drive[_MAX_PATH], dir[_MAX_PATH], fname[_MAX_PATH], ext[_MAX_PATH];
 
@@ -179,12 +183,15 @@ void CListManagementDlg::OnShowWindow()
 
 		CString dir2 = dir;
 
-		// どこからフォルダー構成をコピーするか。
+		// 入力、出力パスの結合
 		CString root = _T("ListManagement");
+		csReadPath = CString(drive) + dir2.Left(_tcsclen(dir2) - dir2.Find(root))+_T("\\ListManagement\\ListManagement\\Document\\Input\\Data.csv");
+		csWritePath= CString(drive) + dir2.Left(_tcsclen(dir2) - dir2.Find(root)) + _T("\\ListManagement\\ListManagement\\Document\\Output");
 
-		modulePath = CString(drive) + dir2.Left(_tcsclen(dir2) - dir2.Find(root))+_T("Document\\Input\\Data.csv");
 	}
-	this->ReadPath.SetWindowText(modulePath);
+	this->ReadPath.SetWindowText(csReadPath);
+	this->WritePath.SetWindowText(csWritePath);
+	this->FileName.SetWindowTextW(csFileName);
 
 
 }
@@ -220,7 +227,7 @@ void CListManagementDlg::OnBnClickedButton2()
 	TCHAR* cFileName = csFileName.GetBuffer();
 
 	// コンストラクタの生成
-	CWriteFile(cWritePath,cFileName);
+	CWriteFile::CWriteFile(cWritePath,cFileName);
 
 	// CSVの書き出し
 
