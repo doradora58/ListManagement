@@ -19,7 +19,7 @@ public:
 	ESex eSex; // 性別 
 	int nHeight; // 身長
 	int nWeight; // 体重
-	CString csPlace; // 出身地
+	CString csFrom; // 出身地
 
 };
 
