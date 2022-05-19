@@ -1,4 +1,5 @@
 #pragma once
+#include "DataInfo.h"
 #define NOT_FOUND_FILE -1 // 入力ファイルが存在しないエラー
 
 // csv読み込みクラス
@@ -26,7 +27,7 @@ public:
 
 
 	// **********メンバ変数**********
-
 	CString m_csReadPath; // 読み込むファイルの完全パス
+	TDataInfo* m_ptDataInfo;
 
 };

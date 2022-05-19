@@ -8,7 +8,7 @@ enum ESex
 	OTHER //その他
 };
 
-// CSV読み込み構造体
+// データ情報構造体
 struct TDataInfo
 {
 public:
@@ -23,6 +23,7 @@ public:
 
 };
 
+// データ情報クラス
 class CDataInfo
 {
 public:
@@ -38,6 +39,6 @@ public:
 	~CDataInfo();
 
 
-	TDataInfo m_tDataInfo;
+	TDataInfo* m_ptDataInfo;
 
 };

@@ -47,16 +47,12 @@ int CReadFile::ReadFileData(wchar_t cReadPath[MAX_PATH])
 		int nPos = -1;
 		nPos = csReadLineText.Find(',', nStart);
 		// m_patDataInfoList->ElementAt(0).nId = (int)csReadLineText.Mid(nStart, nPos - nStart);
-		cDataInfo->m_tDataInfo.nId= _ttoi(csReadLineText.Mid(nStart, nPos - nStart));
-
+		//ŒBŠ|@ŽŽ‚µ‘‚«
+		cDataInfo->m_ptDataInfo->nId= _ttoi(csReadLineText.Mid(nStart, nPos - nStart));
+		m_patDataInfoList->ElementAt(0)->nId = _ttoi(csReadLineText.Mid(nStart, nPos - nStart));
 	}
 	cFile.Close();
 	return 0;
 }
 
-void GetDataInfo(CDataInfo* pt);
 
-void GetDataInfo(CDataInfo* pt)
-{
-
-}
