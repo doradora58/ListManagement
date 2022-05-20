@@ -80,9 +80,17 @@ int CDataManagement::WriteData(wchar_t cWritePath[MAX_PATH], wchar_t cFileName[_
 	
 	
 	m_pacDataInfo->ElementAt(0)->GetData(
-		tDataInfo.csFirstName,
-		);
+		&tDataInfo.nId,
+		&tDataInfo.csFirstName,
+		&tDataInfo.csLastName,
+		&tDataInfo.nAge,
+		&tDataInfo.eSex,
+		&tDataInfo.nHeight,
+		&tDataInfo.nWeight,
+		&tDataInfo.csFrom);
+	cStdioFile.WriteString(tDataInfo.csFirstName);
 
-	a;
+	cStdioFile.Close();
+
     return 0;
 }
