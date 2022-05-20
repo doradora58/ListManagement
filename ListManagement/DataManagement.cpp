@@ -31,14 +31,28 @@ int CDataManagement::ReadFileData(wchar_t cReadPath[MAX_PATH])
 
 	CStdioFile cFile;
 	cFile.Open(csReadPath, CFile::modeRead);
+
+	// CArray<CDataInfo>のインスタンスが作成されていれば、newしない。
+	if (m_pacDataInfo == nullptr)
+	{
+		m_pacDataInfo = new CArray<CDataInfo*>();
+		m_pacDataInfo->RemoveAll();
+
+	}
+	
+	// CDataInfoインスタンスの作成
+	CDataInfo* cDataInfo = new CDataInfo();
+	m_pacDataInfo->Add(cDataInfo);
+
 	// 一行分テキスト読み込み
 	CString csReadLineText;
 	while (cFile.ReadString(csReadLineText))
 	{
-		// 先頭文字位置
+		// 開始文字位置の初期化
 		int nStart = 0;
 		// 
 		int nPos = -1;
+		// nPosをnStartから','までの文字数
 		nPos = csReadLineText.Find(',', nStart);
 		// m_patDataInfoList->ElementAt(0).nId = (int)csReadLineText.Mid(nStart, nPos - nStart);
 		// 沓掛　試し書き
@@ -50,15 +64,9 @@ int CDataManagement::ReadFileData(wchar_t cReadPath[MAX_PATH])
 	cFile.Close();
 
 
-
-	if (m_pacDataInfo == nullptr)
-	{
-		m_pacDataInfo = new CArray<CDataInfo*>();
-		m_pacDataInfo->RemoveAll();
-
-	}
-	CDataInfo* cDataInfo = new CDataInfo();
-	m_pacDataInfo->Add(cDataInfo);
+	
+	// デバッグ用データ
+	/*
 	TDataInfo tDataInfo;
 	tDataInfo.nId = 111;
 	tDataInfo.csFirstName = _T("aaa");
@@ -69,7 +77,6 @@ int CDataManagement::ReadFileData(wchar_t cReadPath[MAX_PATH])
 	tDataInfo.nWeight = 344;
 	tDataInfo.csFrom = _T("ooita");
 
-
 	m_pacDataInfo->ElementAt(0)->SetData(
 		tDataInfo.nId,
 		tDataInfo.csFirstName,
@@ -79,6 +86,7 @@ int CDataManagement::ReadFileData(wchar_t cReadPath[MAX_PATH])
 		tDataInfo.nHeight,
 		tDataInfo.nWeight,
 		tDataInfo.csFrom);
+	*/
     return 0;
 }
 
