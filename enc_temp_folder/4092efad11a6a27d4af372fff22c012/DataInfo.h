@@ -50,16 +50,6 @@ public:
 	/// </summary>
 	~CDataInfo();
 
-	void SetData(int nId, CString csFirstName, CString csLastName, int nAge, ESex eSex, int nHeight, int nWeight, CString csFrom);
+	TDataInfo* m_ptDataInfo;
 
-	void GetData(int* nId, CString* csFirstName, CString* csLastName, int* nAge, ESex* eSex, int* nHeight, int* nWeight, CString* csFrom);
-
-	int m_nId; // ID
-	CString m_csFirstName; // ファーストネーム
-	CString m_csLastName; // ラストネーム
-	int m_nAge; // 年齢
-	ESex m_eSex; // 性別 
-	int m_nHeight; // 身長
-	int m_nWeight; // 体重
-	CString m_csFrom; // 出身地
 };

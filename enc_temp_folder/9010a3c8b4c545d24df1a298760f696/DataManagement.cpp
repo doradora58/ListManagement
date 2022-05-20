@@ -3,7 +3,7 @@
 #define NOT_FOUND_FILE -1 // 入力ファイルが存在しないエラー
 
 
-CArray<CDataInfo*>* m_pacDataInfo = nullptr;
+CArray<CDataInfo*>* m_patDataInfo = nullptr;
 
 
 CDataManagement::CDataManagement()
@@ -20,6 +20,9 @@ int CDataManagement::ReadFileData(wchar_t cReadPath[MAX_PATH])
 	CString csReadPath = cReadPath;
 	// インスタンスの生成
 	CFileFind cFileFind;
+
+
+
 
 	// 入力ファイルが存在するか確認
 	if (cFileFind.FindFile(csReadPath) == 0) // FindFile関数の戻り値が0以外で正常完了
@@ -44,26 +47,25 @@ int CDataManagement::ReadFileData(wchar_t cReadPath[MAX_PATH])
 		// 沓掛　試し書き
 		//cDataInfo->m_ptDataInfo->nId= _ttoi(csReadLineText.Mid(nStart, nPos - nStart));
 		//m_patDataInfoList->ElementAt(0)->nId = _ttoi(csReadLineText.Mid(nStart, nPos - nStart));
-
+		
 		
 	}
 	cFile.Close();
 
 
 
-	if (m_pacDataInfo == nullptr)
+	if (m_patDataInfo == nullptr)
 	{
-		m_pacDataInfo = new CArray<CDataInfo*>();
-		m_pacDataInfo->RemoveAll();
+		m_patDataInfo = new CArray<CDataInfo*>();
+		m_patDataInfo->RemoveAll();
 
 	}
 	CDataInfo* cDataInfo = new CDataInfo();
-	m_pacDataInfo->Add(cDataInfo);
-	m_pacDataInfo->ElementAt(0)->SetData(_T("aaa"));
+	m_patDataInfo->Add(cDataInfo);
     return 0;
 }
 
-int CDataManagement::WriteData(wchar_t cWritePath[MAX_PATH], wchar_t cFileName[_MAX_FNAME])
+int CDataManagement::WriteData(wchar_t cWritePath[MAX_PATH], wchar_t cFileName[_MAX_FNAME], TDataInfo tDataInfo)
 {
 	CString csWritePath = CString(cWritePath) + _T("\\") + CString(cFileName);
 	// インスタンスの生成
@@ -73,21 +75,25 @@ int CDataManagement::WriteData(wchar_t cWritePath[MAX_PATH], wchar_t cFileName[_
 	// ファイルの最後にアタッチ
 	cStdioFile.SeekToEnd();
 	// ファイルにデータを書き込む
-	TDataInfo tDataInfo;
-	
-	
-	m_pacDataInfo->ElementAt(0)->GetData(
-		&tDataInfo.nId,
-		&tDataInfo.csFirstName,
-		&tDataInfo.csLastName,
-		&tDataInfo.nAge,
-		&tDataInfo.eSex,
-		&tDataInfo.nHeight,
-		&tDataInfo.nWeight,
-		&tDataInfo.csFrom);
-	cStdioFile.WriteString(tDataInfo.csFirstName);
+	CString csId;
+	csId.Format(_T("%s"), tDataInfo.nId + ",");
+	cStdioFile.WriteString(csId);
+	cStdioFile.WriteString((CString)tDataInfo.csFirstName + _T(","));
+	cStdioFile.WriteString(tDataInfo.csLastName + _T(","));
+	CString csAge;
+	csAge.Format(_T("%d"), tDataInfo.nAge + _T(","));
+	cStdioFile.WriteString(csAge + _T(","));
+	CString csSex;
+	csSex.Format(_T("%d"), tDataInfo.eSex + _T(","));
+	cStdioFile.WriteString(csSex + _T(","));
+	CString csHeight;
+	csSex.Format(_T("%d"), tDataInfo.nHeight + _T(","));
+	cStdioFile.WriteString(csHeight);
+	CString csWeight;
+	csWeight.Format(_T("%d"), tDataInfo.nWeight + _T(","));
+	cStdioFile.WriteString(csWeight + _T(","));
+	cStdioFile.WriteString(tDataInfo.csFrom + _T(","));
 
-	cStdioFile.Close();
 
     return 0;
 }
