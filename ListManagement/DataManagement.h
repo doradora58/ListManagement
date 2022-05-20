@@ -42,6 +42,8 @@ public:
 	CString m_csFileName; // ファイル出力先ファイル名
 
 	CString m_csReadPath; // 読み込むファイルの完全パス
-	CArray<CDataInfo*> m_patDataInfo;
+
+	//CArray<CDataInfo*>* m_patDataInfo;
+
 
 };

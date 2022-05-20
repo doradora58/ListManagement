@@ -2,8 +2,17 @@
 #include "DataManagement.h"
 #define NOT_FOUND_FILE -1 // 入力ファイルが存在しないエラー
 
+
+CArray<CDataInfo*>* m_patDataInfo = nullptr;
+
+
 CDataManagement::CDataManagement()
 {
+	if (m_patDataInfo != nullptr) 
+	{
+		return;
+	}
+		m_patDataInfo = nullptr;
 }
 
 CDataManagement::~CDataManagement()
@@ -15,6 +24,15 @@ int CDataManagement::ReadFileData(wchar_t cReadPath[MAX_PATH])
 	CString csReadPath = cReadPath;
 	// インスタンスの生成
 	CFileFind cFileFind;
+
+	if (m_patDataInfo == nullptr) 
+	{
+		m_patDataInfo = new CArray<CDataInfo*>();
+		m_patDataInfo->RemoveAll();
+
+	}
+	CDataInfo* cDataInfo = new CDataInfo();
+	m_patDataInfo->Add(cDataInfo);
 
 
 
