@@ -84,6 +84,7 @@ int CDataManagement::ReadFileData(wchar_t cReadPath[MAX_PATH])
 
 int CDataManagement::WriteData(wchar_t cWritePath[MAX_PATH], wchar_t cFileName[_MAX_FNAME])
 {
+
 	CString csWritePath = CString(cWritePath) + _T("\\") + CString(cFileName);
 	// インスタンスの生成
 	CStdioFile cStdioFile;
@@ -112,24 +113,16 @@ int CDataManagement::WriteData(wchar_t cWritePath[MAX_PATH], wchar_t cFileName[_
 	CString csAge;
 	csAge.Format(_T("%d\n"), tDataInfo.nAge);
 	cStdioFile.WriteString(csAge);
-	
 	CString csSex;
 	csSex.Format(_T("%d\n"), tDataInfo.eSex);
 	cStdioFile.WriteString(csSex);
-	
 	CString csHeight;
 	csHeight.Format(_T("%d\n"), tDataInfo.nHeight);
-
 	cStdioFile.WriteString(csHeight);
-
-
 	CString csWeight;
 	csWeight.Format(_T("%d\n"), tDataInfo.nWeight);
-
 	cStdioFile.WriteString(csWeight);
-
 	cStdioFile.WriteString(tDataInfo.csFrom+_T("\n"));
-
 	cStdioFile.Close();
 
     return 0;
