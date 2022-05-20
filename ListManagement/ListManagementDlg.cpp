@@ -228,21 +228,7 @@ void CListManagementDlg::OnBnClickedButton2()
 	this->FileName.GetWindowText(csFileName);
 	TCHAR* cFileName = csFileName.GetBuffer();
 
-	
-	// **********デバッグ用**********
-	// 初期設定
-	TDataInfo tDataInfo;
-	tDataInfo.nId = 0;
-	tDataInfo.csFirstName = _T("山田");
-	tDataInfo.csLastName = _T("太郎");
-	tDataInfo.nAge = 20;
-	tDataInfo.eSex = ESex::MAN;
-	tDataInfo.nHeight = 175;
-	tDataInfo.nWeight = 65;
-	tDataInfo.csFrom = _T("日本");
-
-
-	CDataManagement a;
-	a.WriteData(cWritePath, cFileName);
+	CDataManagement cDataManagement;
+	cDataManagement.WriteData(cWritePath, cFileName);
 
 }

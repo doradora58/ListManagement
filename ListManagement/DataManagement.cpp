@@ -104,7 +104,31 @@ int CDataManagement::WriteData(wchar_t cWritePath[MAX_PATH], wchar_t cFileName[_
 		&tDataInfo.nHeight,
 		&tDataInfo.nWeight,
 		&tDataInfo.csFrom);
-	cStdioFile.WriteString(tDataInfo.csFirstName);
+	CString csId;
+	csId.Format(_T("%d\n"), tDataInfo.nId);
+	cStdioFile.WriteString(csId);
+	cStdioFile.WriteString(tDataInfo.csFirstName+_T("\n"));
+	cStdioFile.WriteString(tDataInfo.csLastName + _T("\n"));
+	CString csAge;
+	csAge.Format(_T("%d\n"), tDataInfo.nAge);
+	cStdioFile.WriteString(csAge);
+	
+	CString csSex;
+	csSex.Format(_T("%d\n"), tDataInfo.eSex);
+	cStdioFile.WriteString(csSex);
+	
+	CString csHeight;
+	csHeight.Format(_T("%d\n"), tDataInfo.nHeight);
+
+	cStdioFile.WriteString(csHeight);
+
+
+	CString csWeight;
+	csWeight.Format(_T("%d\n"), tDataInfo.nWeight);
+
+	cStdioFile.WriteString(csWeight);
+
+	cStdioFile.WriteString(tDataInfo.csFrom+_T("\n"));
 
 	cStdioFile.Close();
 
