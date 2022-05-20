@@ -8,11 +8,7 @@ CArray<CDataInfo*>* m_patDataInfo = nullptr;
 
 CDataManagement::CDataManagement()
 {
-	if (m_patDataInfo != nullptr) 
-	{
-		return;
-	}
-		m_patDataInfo = nullptr;
+
 }
 
 CDataManagement::~CDataManagement()
@@ -25,14 +21,6 @@ int CDataManagement::ReadFileData(wchar_t cReadPath[MAX_PATH])
 	// インスタンスの生成
 	CFileFind cFileFind;
 
-	if (m_patDataInfo == nullptr) 
-	{
-		m_patDataInfo = new CArray<CDataInfo*>();
-		m_patDataInfo->RemoveAll();
-
-	}
-	CDataInfo* cDataInfo = new CDataInfo();
-	m_patDataInfo->Add(cDataInfo);
 
 
 
@@ -63,6 +51,17 @@ int CDataManagement::ReadFileData(wchar_t cReadPath[MAX_PATH])
 		
 	}
 	cFile.Close();
+
+
+
+	if (m_patDataInfo == nullptr)
+	{
+		m_patDataInfo = new CArray<CDataInfo*>();
+		m_patDataInfo->RemoveAll();
+
+	}
+	CDataInfo* cDataInfo = new CDataInfo();
+	m_patDataInfo->Add(cDataInfo);
     return 0;
 }
 

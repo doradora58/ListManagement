@@ -50,6 +50,6 @@ public:
 	/// </summary>
 	~CDataInfo();
 
-
+	TDataInfo* m_ptDataInfo;
 
 };
