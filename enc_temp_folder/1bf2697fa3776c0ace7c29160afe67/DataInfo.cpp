@@ -20,12 +20,10 @@ CDataInfo::~CDataInfo()
 
 void CDataInfo::SetFirstName(CString csFirstName)
 {
-
 	m_csFirstName = csFirstName;
 }
 
 CString CDataInfo::GetFirstName()
 {
-	
 	return m_csFirstName;
 }

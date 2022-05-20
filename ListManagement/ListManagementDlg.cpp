@@ -241,6 +241,7 @@ void CListManagementDlg::OnBnClickedButton2()
 	tDataInfo.csFrom = _T("日本");
 
 
-
+	CDataManagement a;
+	a.WriteData(cWritePath, cFileName);
 
 }

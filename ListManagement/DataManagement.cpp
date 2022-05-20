@@ -3,7 +3,7 @@
 #define NOT_FOUND_FILE -1 // 入力ファイルが存在しないエラー
 
 
-CArray<CDataInfo*>* m_patDataInfo = nullptr;
+CArray<CDataInfo*>* m_pacDataInfo = nullptr;
 
 
 CDataManagement::CDataManagement()
@@ -47,25 +47,26 @@ int CDataManagement::ReadFileData(wchar_t cReadPath[MAX_PATH])
 		// 沓掛　試し書き
 		//cDataInfo->m_ptDataInfo->nId= _ttoi(csReadLineText.Mid(nStart, nPos - nStart));
 		//m_patDataInfoList->ElementAt(0)->nId = _ttoi(csReadLineText.Mid(nStart, nPos - nStart));
-		
+
 		
 	}
 	cFile.Close();
 
 
 
-	if (m_patDataInfo == nullptr)
+	if (m_pacDataInfo == nullptr)
 	{
-		m_patDataInfo = new CArray<CDataInfo*>();
-		m_patDataInfo->RemoveAll();
+		m_pacDataInfo = new CArray<CDataInfo*>();
+		m_pacDataInfo->RemoveAll();
 
 	}
 	CDataInfo* cDataInfo = new CDataInfo();
-	m_patDataInfo->Add(cDataInfo);
+	m_pacDataInfo->Add(cDataInfo);
+	m_pacDataInfo->ElementAt(0)->SetFirstName(_T("aaa"));
     return 0;
 }
 
-int CDataManagement::WriteData(wchar_t cWritePath[MAX_PATH], wchar_t cFileName[_MAX_FNAME], TDataInfo tDataInfo)
+int CDataManagement::WriteData(wchar_t cWritePath[MAX_PATH], wchar_t cFileName[_MAX_FNAME])
 {
 	CString csWritePath = CString(cWritePath) + _T("\\") + CString(cFileName);
 	// インスタンスの生成
@@ -75,25 +76,9 @@ int CDataManagement::WriteData(wchar_t cWritePath[MAX_PATH], wchar_t cFileName[_
 	// ファイルの最後にアタッチ
 	cStdioFile.SeekToEnd();
 	// ファイルにデータを書き込む
-	CString csId;
-	csId.Format(_T("%s"), tDataInfo.nId + ",");
-	cStdioFile.WriteString(csId);
-	cStdioFile.WriteString((CString)tDataInfo.csFirstName + _T(","));
-	cStdioFile.WriteString(tDataInfo.csLastName + _T(","));
-	CString csAge;
-	csAge.Format(_T("%d"), tDataInfo.nAge + _T(","));
-	cStdioFile.WriteString(csAge + _T(","));
-	CString csSex;
-	csSex.Format(_T("%d"), tDataInfo.eSex + _T(","));
-	cStdioFile.WriteString(csSex + _T(","));
-	CString csHeight;
-	csSex.Format(_T("%d"), tDataInfo.nHeight + _T(","));
-	cStdioFile.WriteString(csHeight);
-	CString csWeight;
-	csWeight.Format(_T("%d"), tDataInfo.nWeight + _T(","));
-	cStdioFile.WriteString(csWeight + _T(","));
-	cStdioFile.WriteString(tDataInfo.csFrom + _T(","));
+	
+	CString a =m_pacDataInfo->ElementAt(0)->GetFirstName();
 
-
+	a;
     return 0;
 }

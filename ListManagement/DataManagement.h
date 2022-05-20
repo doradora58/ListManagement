@@ -32,7 +32,7 @@ public:
 	/// <param name="cFileName">書き出し用のファイル名</param>
 	/// <param name="cDataInfo">書き出し用データ</param>
 	/// <returns>0：成功　0：以外失敗</returns>
-	int WriteData(wchar_t cWritePath[MAX_PATH], wchar_t cFileName[_MAX_FNAME], TDataInfo tDataInfo);
+	int WriteData(wchar_t cWritePath[MAX_PATH], wchar_t cFileName[_MAX_FNAME]);
 
 
 
