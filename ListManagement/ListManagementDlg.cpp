@@ -206,9 +206,10 @@ void CListManagementDlg::OnBnClickedButton1()
 	CString csReadPath;
 	this->ReadPath.GetWindowText(csReadPath);
 	TCHAR* cReadPath = csReadPath.GetBuffer();
+	int b;
 	CDataManagement a;
 
-	a.ReadFileData(cReadPath);
+	b = a.ReadFileData(cReadPath);
 
 }
 

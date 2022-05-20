@@ -59,7 +59,26 @@ int CDataManagement::ReadFileData(wchar_t cReadPath[MAX_PATH])
 	}
 	CDataInfo* cDataInfo = new CDataInfo();
 	m_pacDataInfo->Add(cDataInfo);
-	m_pacDataInfo->ElementAt(0)->SetData(_T("aaa"));
+	TDataInfo tDataInfo;
+	tDataInfo.nId = 111;
+	tDataInfo.csFirstName = _T("aaa");
+	tDataInfo.csLastName= _T("aaa");
+	tDataInfo.nAge = 2324;
+	tDataInfo.eSex = ESex::MAN;
+	tDataInfo.nHeight = 123;
+	tDataInfo.nWeight = 344;
+	tDataInfo.csFrom = _T("ooita");
+
+
+	m_pacDataInfo->ElementAt(0)->SetData(
+		tDataInfo.nId,
+		tDataInfo.csFirstName,
+		tDataInfo.csLastName,
+		tDataInfo.nAge,
+		tDataInfo.eSex,
+		tDataInfo.nHeight,
+		tDataInfo.nWeight,
+		tDataInfo.csFrom);
     return 0;
 }
 
