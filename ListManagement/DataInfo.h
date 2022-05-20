@@ -20,6 +20,18 @@ public:
 	int nHeight; // 身長
 	int nWeight; // 体重
 	CString csFrom; // 出身地
+	TDataInfo()
+	{
+		nId = 0;
+		csFirstName = "";
+		csLastName = "";
+		nAge = 0;
+		eSex = ESex::MAN;
+		nHeight = 0;
+		nWeight = 0;
+		csFrom = "";
+
+	}
 
 };
 

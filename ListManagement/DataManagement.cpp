@@ -42,6 +42,7 @@ int CDataManagement::ReadFileData(wchar_t cReadPath[MAX_PATH])
 		//cDataInfo->m_ptDataInfo->nId= _ttoi(csReadLineText.Mid(nStart, nPos - nStart));
 		//m_patDataInfoList->ElementAt(0)->nId = _ttoi(csReadLineText.Mid(nStart, nPos - nStart));
 		
+		
 	}
 	cFile.Close();
     return 0;
