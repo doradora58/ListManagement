@@ -50,7 +50,8 @@ public:
 	/// </summary>
 	~CDataInfo();
 
-	void SetFirstName(CString csFirstName);
+	void SetData(int nId, CString csFirstName, CString csLastName, int nAge, ESex eSex, int nHeight, int nWeight, CString csFrom);
+
 	void GetData(int* nId, CString* csFirstName, CString* csLastName, int* nAge, ESex* eSex, int* nHeight, int* nWeight, CString* csFrom);
 
 	int m_nId; // ID
