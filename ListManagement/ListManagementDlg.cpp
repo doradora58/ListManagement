@@ -7,12 +7,13 @@
 #include "ListManagement.h"
 #include "ListManagementDlg.h"
 #include "afxdialogex.h"
-#include "WriteFile.h"
+#include "DataInfo.h"
+#include "DataManagement.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
-#include "ReadFile.h"
+
 
 
 // アプリケーションのバージョン情報に使われる CAboutDlg ダイアログ
@@ -205,7 +206,7 @@ void CListManagementDlg::OnBnClickedButton1()
 	CString csReadPath;
 	this->ReadPath.GetWindowText(csReadPath);
 	TCHAR* cReadPath = csReadPath.GetBuffer();
-	CReadFile a;
+	CDataManagement a;
 
 	a.ReadFileData(cReadPath);
 
@@ -227,7 +228,7 @@ void CListManagementDlg::OnBnClickedButton2()
 	TCHAR* cFileName = csFileName.GetBuffer();
 
 	// インスタンスの生成
-	CWriteFile cWriteFile(cWritePath, cFileName);
+	//CDataManagement cWriteFile(cWritePath, cFileName);
 
 	// **********デバッグ用**********
 	// 初期設定
@@ -242,7 +243,7 @@ void CListManagementDlg::OnBnClickedButton2()
 	tDataInfo.csFrom = _T("日本");
 
 	// CSVの書き出し
-	cWriteFile.WriteData(cWritePath, cFileName, tDataInfo);
+	//cWriteFile.WriteData(cWritePath, cFileName, tDataInfo);
 
 
 

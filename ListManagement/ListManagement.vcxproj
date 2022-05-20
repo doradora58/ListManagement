@@ -184,17 +184,17 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="DataInfo.h" />
+    <ClInclude Include="DataManagement.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="ListManagement.h" />
     <ClInclude Include="ListManagementDlg.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="ReadFile.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="WriteFile.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DataInfo.cpp" />
+    <ClCompile Include="DataManagement.cpp" />
     <ClCompile Include="ListManagement.cpp" />
     <ClCompile Include="ListManagementDlg.cpp" />
     <ClCompile Include="pch.cpp">
@@ -203,8 +203,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="ReadFile.cpp" />
-    <ClCompile Include="WriteFile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="ListManagement.rc" />
