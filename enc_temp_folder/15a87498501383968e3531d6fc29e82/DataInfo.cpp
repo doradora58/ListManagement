@@ -8,7 +8,8 @@
 /// </summary>
 CDataInfo::CDataInfo()
 {
-	
+	m_ptDataInfo = new TDataInfo();
+	m_ptDataInfo->csFirstName = _T("aaa");
 }
 
 /// <summary>
@@ -16,16 +17,4 @@ CDataInfo::CDataInfo()
 /// </summary>
 CDataInfo::~CDataInfo()
 {
-}
-
-void CDataInfo::SetData(CString csFirstName)
-{
-
-	m_csFirstName = csFirstName;
-}
-
-CString CDataInfo::GetFirstName()
-{
-	
-	return m_csFirstName;
 }

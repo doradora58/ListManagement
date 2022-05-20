@@ -50,8 +50,6 @@ public:
 	/// </summary>
 	~CDataInfo();
 
-	void SetData(CString csFirstName);
-	CString GetFirstName();
+	TDataInfo* m_ptDataInfo;
 
-	CString m_csFirstName;
 };
