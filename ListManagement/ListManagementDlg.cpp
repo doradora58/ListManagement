@@ -227,9 +227,7 @@ void CListManagementDlg::OnBnClickedButton2()
 	this->FileName.GetWindowText(csFileName);
 	TCHAR* cFileName = csFileName.GetBuffer();
 
-	// インスタンスの生成
-	//CDataManagement cWriteFile(cWritePath, cFileName);
-
+	
 	// **********デバッグ用**********
 	// 初期設定
 	TDataInfo tDataInfo;
@@ -242,8 +240,6 @@ void CListManagementDlg::OnBnClickedButton2()
 	tDataInfo.nWeight = 65;
 	tDataInfo.csFrom = _T("日本");
 
-	// CSVの書き出し
-	//cWriteFile.WriteData(cWritePath, cFileName, tDataInfo);
 
 
 
