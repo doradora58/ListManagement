@@ -15,8 +15,8 @@ int CDataManagement::ReadFileData(wchar_t cReadPath[MAX_PATH])
 	CString csReadPath = cReadPath;
 	// インスタンスの生成
 	CFileFind cFileFind;
-	//
-	CDataInfo* cDataInfo = new CDataInfo;
+
+
 
 	// 入力ファイルが存在するか確認
 	if (cFileFind.FindFile(csReadPath) == 0) // FindFile関数の戻り値が0以外で正常完了
@@ -41,6 +41,7 @@ int CDataManagement::ReadFileData(wchar_t cReadPath[MAX_PATH])
 		// 沓掛　試し書き
 		//cDataInfo->m_ptDataInfo->nId= _ttoi(csReadLineText.Mid(nStart, nPos - nStart));
 		//m_patDataInfoList->ElementAt(0)->nId = _ttoi(csReadLineText.Mid(nStart, nPos - nStart));
+		
 	}
 	cFile.Close();
     return 0;

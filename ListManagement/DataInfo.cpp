@@ -8,7 +8,6 @@
 /// </summary>
 CDataInfo::CDataInfo()
 {
-
 }
 
 /// <summary>

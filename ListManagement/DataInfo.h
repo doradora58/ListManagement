@@ -39,6 +39,5 @@ public:
 	~CDataInfo();
 
 
-	TDataInfo* m_ptDataInfo;
 
 };

@@ -1,7 +1,8 @@
 #pragma once
 #include "DataInfo.h"
 
-class CDataManagement {
+class CDataManagement
+{
 
 
 public:
@@ -41,6 +42,6 @@ public:
 	CString m_csFileName; // ファイル出力先ファイル名
 
 	CString m_csReadPath; // 読み込むファイルの完全パス
-	TDataInfo* m_ptDataInfo;
+	CArray<CDataInfo*> m_patDataInfo;
 
 };
