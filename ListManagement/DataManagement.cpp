@@ -73,8 +73,12 @@ int CDataManagement::WriteData(wchar_t cWritePath[MAX_PATH], wchar_t cFileName[_
 	// ファイルの最後にアタッチ
 	cStdioFile.SeekToEnd();
 	// ファイルにデータを書き込む
+	TDataInfo tDataInfo;
 	
-	CString a =m_pacDataInfo->ElementAt(0)->GetFirstName();
+	
+	m_pacDataInfo->ElementAt(0)->GetData(
+		tDataInfo.csFirstName,
+		);
 
 	a;
     return 0;
