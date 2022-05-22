@@ -35,15 +35,20 @@ CDataInfo::~CDataInfo()
 {
 }
 
-void CDataInfo::SetData(int nId, CString csFirstName, CString csLastName, int nAge, ESex eSex, int nHeight, int nWeight, CString csFrom)
+void CDataInfo::SetData(CString nId, CString csFirstName, CString csLastName, CString nAge, CString eSex, CString nHeight, CString nWeight, CString csFrom)
 {
-	m_nId = nId;
+	m_nId = _ttoi(nId);
 	m_csFirstName = csFirstName;
 	m_csLastName = csLastName;
-	m_nAge = nAge;
-	m_eSex = eSex;
-	m_nHeight = nHeight;
-	m_nWeight = nWeight;
+	m_nAge = _ttoi(nAge);
+	if (eSex == "íj")
+		m_eSex = ESex::MAN;
+	else if (eSex == "èó")
+		m_eSex = ESex::WOMAN;
+	else
+		m_eSex = ESex::OTHER;
+	m_nHeight = _ttoi(nHeight);
+	m_nWeight = _ttoi(nWeight);
 	m_csFrom = csFrom;
 }
 

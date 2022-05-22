@@ -50,7 +50,7 @@ public:
 	/// </summary>
 	~CDataInfo();
 
-	void SetData(int nId, CString csFirstName, CString csLastName, int nAge, ESex eSex, int nHeight, int nWeight, CString csFrom);
+	void SetData(CString nId, CString csFirstName, CString csLastName, CString nAge, CString eSex, CString nHeight, CString nWeight, CString csFrom);
 
 	void SetData(TDataInfo tDataInfo);
 

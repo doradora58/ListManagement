@@ -1,8 +1,7 @@
 #include "pch.h"
 #include "DataManagement.h"
 #define NOT_FOUND_FILE -1 // 入力ファイルが存在しないエラー
-#define FILE_OPEN_FAILED -2 // ファイルオープンに失敗
-#define WRITE_SUCCESS 1; // 書き込み処理成功
+#define CSV_COLUMNS_NUM 8 // csvファイルの列数
 
 
 CArray<CDataInfo*>* m_pacDataInfo = nullptr;
@@ -12,30 +11,11 @@ CDataManagement::CDataManagement()
 {
 
 }
-/// <summary>
-/// デストラクタ
-/// </summary>
+
 CDataManagement::~CDataManagement()
 {
-	if (m_pacDataInfo != nullptr)
-	{
-		for (int i = 0; i < m_pacDataInfo->GetCount(); i++)
-		{
-
-			CDataInfo* pDataInfo = m_pacDataInfo->GetAt(i);
-			delete pDataInfo;
-		}
-		m_pacDataInfo->RemoveAll();
-		delete m_pacDataInfo;
-		m_pacDataInfo = NULL;
-	}
 }
 
-/// <summary>
-/// csvファイルの読み込み実行関数
-/// </summary>
-/// <param name="cReadPath">読み込みパス</param>
-/// <returns>0:成功　0以外:失敗</returns>
 int CDataManagement::ReadFileData(wchar_t cReadPath[MAX_PATH])
 {
 	CString csReadPath = cReadPath;
@@ -61,25 +41,51 @@ int CDataManagement::ReadFileData(wchar_t cReadPath[MAX_PATH])
 
 	}
 	
-	// CDataInfoインスタンスの作成
-	CDataInfo* cDataInfo = new CDataInfo();
-	m_pacDataInfo->Add(cDataInfo);
-
 	// 一行分テキスト読み込み
 	CString csReadLineText;
-	while (cFile.ReadString(csReadLineText))
+
+	
+	for (int I = 0; cFile.ReadString(csReadLineText); I++)
 	{
+		// CDataInfoインスタンスの作成
+		CDataInfo* cDataInfo = new CDataInfo();
+		m_pacDataInfo->Add(cDataInfo);
 		// 開始文字位置の初期化
 		int nStart = 0;
 		// 
 		int nPos = -1;
 		// nPosをnStartから','までの文字数
 		nPos = csReadLineText.Find(',', nStart);
+
+		CString ReadData[CSV_COLUMNS_NUM];
+
+		// 一行分のカンマ区切りの要素を抜き出す
+		for (int i = 0; nPos > -1; i++)
+		{
+			ReadData[i] = csReadLineText.Mid(nStart, nPos - nStart);
+			nStart = nPos + 1;
+			nPos = csReadLineText.Find(',', nStart);
+			if (nPos == -1)
+			{
+				i++;
+				ReadData[i] = csReadLineText.Mid(nStart);
+				m_pacDataInfo->ElementAt(I)->SetData(
+					ReadData[0],
+					ReadData[1],
+					ReadData[2],
+					ReadData[3],
+					ReadData[4],
+					ReadData[5],
+					ReadData[6],
+					ReadData[7]);
+				m_pacDataInfo->ElementAt(I)->m_tDataInfo.csFirstName = ReadData[0];
+			}
+		}
+	}
 		// m_patDataInfoList->ElementAt(0).nId = (int)csReadLineText.Mid(nStart, nPos - nStart);
 		// 沓掛　試し書き
 		//cDataInfo->m_ptDataInfo->nId= _ttoi(csReadLineText.Mid(nStart, nPos - nStart));
-		//m_patDataInfoList->ElementAt(0)->nId = _ttoi(csReadLineText.Mid(nStart, nPos - nStart));
-	}
+		//m_patDataInfoList->ElementAt(0)->nId = _ttoi(csReadLineText.Mid(nStart, nPos - nStart));	
 	cFile.Close();
 
 
@@ -255,4 +261,3 @@ int CDataManagement::WriteDataKK(wchar_t cWritePath[MAX_PATH], wchar_t cFileName
 {
 	return 0;
 }
-//*********************************************************
