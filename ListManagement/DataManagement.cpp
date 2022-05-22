@@ -19,18 +19,18 @@ CDataManagement::CDataManagement()
 /// </summary>
 CDataManagement::~CDataManagement()
 {
-	if (m_pacDataInfo != nullptr)
-	{
-		for (int i = 0; i < m_pacDataInfo->GetCount(); i++)
-		{
+	//if (m_pacDataInfo != nullptr)
+	//{
+	//	for (int i = 0; i < m_pacDataInfo->GetCount(); i++)
+	//	{
 
-			CDataInfo* pDataInfo = m_pacDataInfo->GetAt(i);
-			delete pDataInfo;
-		}
-		m_pacDataInfo->RemoveAll();
-		delete m_pacDataInfo;
-		m_pacDataInfo = NULL;
-	}
+	//		CDataInfo* pDataInfo = m_pacDataInfo->GetAt(i);
+	//		delete pDataInfo;
+	//	}
+	//	m_pacDataInfo->RemoveAll();
+	//	delete m_pacDataInfo;
+	//	m_pacDataInfo = NULL;
+	//}
 }
 
 /// <summary>
@@ -169,7 +169,10 @@ int CDataManagement::WriteData(wchar_t cWritePath[MAX_PATH], wchar_t cFileName[_
 
 	// ファイルの最後にアタッチ
 	cStdioFile.SeekToEnd();
-	
+	//// CDataInfoインスタンスの作成
+	//CDataInfo* cDataInfo = new CDataInfo();
+	//m_pacDataInfo->Add(cDataInfo);
+
 	// 追加されたデータの行数だけループ
 	for(int i = 0; i < m_pacDataInfo->GetCount(); i++) 
 	{
