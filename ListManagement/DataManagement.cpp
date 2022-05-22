@@ -12,9 +12,30 @@ CDataManagement::CDataManagement()
 
 }
 
+/// <summary>
+/// デストラクタ
+/// </summary>
 CDataManagement::~CDataManagement()
 {
+	if (m_pacDataInfo != nullptr)
+	{
+		for (int i = 0; i < m_pacDataInfo->GetCount(); i++)
+		{
+
+			CDataInfo* pDataInfo = m_pacDataInfo->GetAt(i);
+			delete pDataInfo;
+		}
+		m_pacDataInfo->RemoveAll();
+		delete m_pacDataInfo;
+		m_pacDataInfo = NULL;
+	}
 }
+
+/// <summary>
+/// csvファイルの読み込み実行関数
+/// </summary>
+/// <param name="cReadPath">読み込みパス</param>
+/// <returns>0:成功　0以外:失敗</returns>
 
 int CDataManagement::ReadFileData(wchar_t cReadPath[MAX_PATH])
 {
@@ -52,7 +73,7 @@ int CDataManagement::ReadFileData(wchar_t cReadPath[MAX_PATH])
 		m_pacDataInfo->Add(cDataInfo);
 		// 開始文字位置の初期化
 		int nStart = 0;
-		// 
+		// カンマの文字位置
 		int nPos = -1;
 		// nPosをnStartから','までの文字数
 		nPos = csReadLineText.Find(',', nStart);
