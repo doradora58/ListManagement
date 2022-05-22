@@ -26,7 +26,7 @@ public:
 		csFirstName = "";
 		csLastName = "";
 		nAge = 0;
-		eSex = ESex::MAN;
+		eSex = ESex::OTHER;
 		nHeight = 0;
 		nWeight = 0;
 		csFrom = "";
@@ -52,11 +52,17 @@ public:
 
 	void SetData(int nId, CString csFirstName, CString csLastName, int nAge, ESex eSex, int nHeight, int nWeight, CString csFrom);
 
+	void SetData(TDataInfo tDataInfo);
+
 	void GetData(int* nId, CString* csFirstName, CString* csLastName, int* nAge, ESex* eSex, int* nHeight, int* nWeight, CString* csFrom);
 
+	void GetData(TDataInfo* ptDataInfo);
+
+	TDataInfo m_tDataInfo;
+
 	int m_nId; // ID
-	CString m_csFirstName; // ファーストネーム
-	CString m_csLastName; // ラストネーム
+	CString m_csFirstName; // 名前（性）
+	CString m_csLastName; // 名前（名）
 	int m_nAge; // 年齢
 	ESex m_eSex; // 性別 
 	int m_nHeight; // 身長

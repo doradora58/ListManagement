@@ -8,7 +8,24 @@
 /// </summary>
 CDataInfo::CDataInfo()
 {
-	
+	m_tDataInfo.nId = 0;
+	m_tDataInfo.csFirstName = "";
+	m_tDataInfo.csLastName = "";
+	m_tDataInfo.nAge = 0;
+	m_tDataInfo.eSex = ESex::MAN;
+	m_tDataInfo.nHeight = 0;
+	m_tDataInfo.nWeight =0;
+	m_tDataInfo.csFrom = "";
+
+	m_nId = 0;
+	m_csFirstName = "";
+	m_csLastName = "";
+	m_nAge = 0;
+	m_eSex = ESex::MAN;
+	m_nHeight = 0;
+	m_nWeight = 0;
+	m_csFrom ="";
+
 }
 
 /// <summary>
@@ -30,6 +47,12 @@ void CDataInfo::SetData(int nId, CString csFirstName, CString csLastName, int nA
 	m_csFrom = csFrom;
 }
 
+void CDataInfo::SetData(TDataInfo tDataInfo)
+{
+	m_tDataInfo = tDataInfo;
+	
+}
+
 void CDataInfo::GetData(int* nId, CString* csFirstName, CString* csLastName, int* nAge, ESex* eSex, int* nHeight, int* nWeight, CString* csFrom)
 {
 	*nId = m_nId;
@@ -42,6 +65,11 @@ void CDataInfo::GetData(int* nId, CString* csFirstName, CString* csLastName, int
 	*csFrom = m_csFrom;
 
 
+}
+
+void CDataInfo::GetData(TDataInfo* ptDataInfo)
+{
+	*ptDataInfo = m_tDataInfo;
 }
 
 

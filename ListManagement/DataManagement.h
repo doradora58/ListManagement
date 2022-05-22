@@ -35,15 +35,14 @@ public:
 	int WriteData(wchar_t cWritePath[MAX_PATH], wchar_t cFileName[_MAX_FNAME]);
 
 
-
+	//***********沓掛試し書き*********
+	int ReadFileDataKK(wchar_t cReadPath[MAX_PATH]);
+	int WriteDataKK(wchar_t cWritePath[MAX_PATH], wchar_t cFileName[_MAX_FNAME]);
+	//********************************
 
 	// **********メンバ変数**********
 	//CString m_csWritePath; // ファイル出力先親フォルダパス
 	CString m_csFileName; // ファイル出力先ファイル名
 
 	CString m_csReadPath; // 読み込むファイルの完全パス
-
-	//CArray<CDataInfo*>* m_patDataInfo;
-
-
 };

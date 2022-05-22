@@ -209,7 +209,7 @@ void CListManagementDlg::OnBnClickedButton1()
 	int b;
 	CDataManagement a;
 
-	b = a.ReadFileData(cReadPath);
+	b = a.ReadFileDataKK(cReadPath);
 
 }
 
