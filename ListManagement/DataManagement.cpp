@@ -79,7 +79,7 @@ int CDataManagement::ReadFileData(wchar_t cReadPath[MAX_PATH])
 		int nPos = -1;
 		// nPosをnStartから','までの文字数
 		nPos = csReadLineText.Find(',', nStart);
-
+		// 読み込みデータの一時保存配列
 		CString ReadData[CSV_COLUMNS_NUM];
 
 		// 一行分のカンマ区切りの要素を抜き出す
@@ -87,6 +87,7 @@ int CDataManagement::ReadFileData(wchar_t cReadPath[MAX_PATH])
 		{
 			ReadData[i] = csReadLineText.Mid(nStart, nPos - nStart);
 			nStart = nPos + 1;
+			// nPosを次のカンマ位置まで移動。カンマがない場合、nPosに-1を返す。
 			nPos = csReadLineText.Find(',', nStart);
 			if (nPos == -1)
 			{
