@@ -79,8 +79,6 @@ int CDataManagement::ReadFileData(wchar_t cReadPath[MAX_PATH])
 		// 沓掛　試し書き
 		//cDataInfo->m_ptDataInfo->nId= _ttoi(csReadLineText.Mid(nStart, nPos - nStart));
 		//m_patDataInfoList->ElementAt(0)->nId = _ttoi(csReadLineText.Mid(nStart, nPos - nStart));
-
-		
 	}
 	cFile.Close();
 
@@ -132,48 +130,6 @@ int CDataManagement::WriteData(wchar_t cWritePath[MAX_PATH], wchar_t cFileName[_
 	TDataInfo tDataInfo;
 
 
-// **************テスト用*****************
-	tDataInfo.nId = 111;
-	tDataInfo.csFirstName = _T("aaa");
-	tDataInfo.csLastName = _T("avdadaafaaa");
-	tDataInfo.nAge = 2324;
-	tDataInfo.eSex = ESex::MAN;
-	tDataInfo.nHeight = 123;
-	tDataInfo.nWeight = 344;
-	tDataInfo.csFrom = _T("ooita");
-
-	m_pacDataInfo->ElementAt(0)->SetData(
-		tDataInfo.nId,
-		tDataInfo.csFirstName,
-		tDataInfo.csLastName,
-		tDataInfo.nAge,
-		tDataInfo.eSex,
-		tDataInfo.nHeight,
-		tDataInfo.nWeight,
-		tDataInfo.csFrom);
-
-	m_pacDataInfo->ElementAt(1)->SetData(
-		tDataInfo.nId,
-		tDataInfo.csFirstName,
-		tDataInfo.csLastName,
-		tDataInfo.nAge,
-		tDataInfo.eSex,
-		tDataInfo.nHeight,
-		tDataInfo.nWeight,
-		tDataInfo.csFrom);
-
-	m_pacDataInfo->ElementAt(2)->SetData(
-		tDataInfo.nId, // ID
-		tDataInfo.csFirstName, // 名前（性）
-		tDataInfo.csLastName, // 名前（名）
-		tDataInfo.nAge, // 年齢
-		tDataInfo.eSex, // 性別 
-		tDataInfo.nHeight, // 身長
-		tDataInfo.nWeight, // 体重
-		tDataInfo.csFrom); // 出身地
-
-	//********************************
-	
 
 	// データ出力先ファイルをオープン
 	if (cStdioFile.Open(csWritePath, CFile::modeReadWrite | CFile::shareDenyNone | CFile::modeCreate | CFile::modeNoTruncate) == FALSE) 
@@ -256,77 +212,41 @@ int CDataManagement::ReadFileDataKK(wchar_t cReadPath[MAX_PATH])
 
 	}
 
-	// CDataInfoインスタンスの作成
-	CDataInfo* pcDataInfo;
+	CString csLine;
+	cStdioFile.ReadString(csLine);
 
-	pcDataInfo->m_tDataInfo.nId;
-	pcDataInfo->m_tDataInfo.csFirstName;
-	pcDataInfo->m_tDataInfo.csLastName;
-	pcDataInfo->m_tDataInfo.nAge;
-	pcDataInfo->m_tDataInfo.eSex;
-	pcDataInfo->m_tDataInfo.nHeight;
-	pcDataInfo->m_tDataInfo.nWeight;
-	pcDataInfo->m_tDataInfo.csFrom;
 
-	// データ情報を追加
-	m_pacDataInfo->Add(pcDataInfo);
+	CArray<CString*>* csaData = new CArray<CString*>();
+	csaData->RemoveAll();
 
-	CString csCSVData;;
+	int iStart = 0;
+	int iPos = -1;
 
-	// 一行分テキスト読み込み
-	CString csReadLineText;
-	BOOL bRet = TRUE;
+	CString* restoken;
+	iPos = csLine.Find(',', iStart);
 
-	while (bRet)
+	while (iPos > -1)
 	{
-		bRet = cStdioFile.ReadString(csReadLineText);
+		restoken =&csLine.Mid(iStart, iPos - iStart);
+		csaData->Add(restoken);
 
-		// 開始文字位置の初期化
-		int nStart = 0;
-		// 
-		int nPos = -1;
-		BOOL bCycle = TRUE;
-		// nPosをnStartから','までの文字数
-		while (bCycle) 
+
+		iStart = iPos + 1;
+		iPos = csLine.Find(',', iStart);
+
+		if (iPos == -1)
 		{
-			nPos = csReadLineText.Find(',', nStart);
-			csCSVData += csReadLineText.Mid(nStart, nPos - nStart);
-			nStart = nPos + 1;
-			if (nPos == -1)
-			{
-				bCycle = FALSE;
-
-			}
+			restoken = &csLine.Mid(iStart);
+			csaData->Add(restoken);
 		}
-
-	
 	}
+
+
+
 	cStdioFile.Close();
 
 
 
-	// デバッグ用データ
-	/*
-	TDataInfo tDataInfo;
-	tDataInfo.nId = 111;
-	tDataInfo.csFirstName = _T("aaa");
-	tDataInfo.csLastName= _T("aaa");
-	tDataInfo.nAge = 2324;
-	tDataInfo.eSex = ESex::MAN;
-	tDataInfo.nHeight = 123;
-	tDataInfo.nWeight = 344;
-	tDataInfo.csFrom = _T("ooita");
-
-	m_pacDataInfo->ElementAt(0)->SetData(
-		tDataInfo.nId,
-		tDataInfo.csFirstName,
-		tDataInfo.csLastName,
-		tDataInfo.nAge,
-		tDataInfo.eSex,
-		tDataInfo.nHeight,
-		tDataInfo.nWeight,
-		tDataInfo.csFrom);
-	*/
 
 	return 0;
 }
