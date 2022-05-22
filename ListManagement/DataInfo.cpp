@@ -35,18 +35,6 @@ CDataInfo::~CDataInfo()
 {
 }
 
-void CDataInfo::SetData(int nId, CString csFirstName, CString csLastName, int nAge, ESex eSex, int nHeight, int nWeight, CString csFrom)
-{
-	m_nId = nId;
-	m_csFirstName = csFirstName;
-	m_csLastName = csLastName;
-	m_nAge = nAge;
-	m_eSex = eSex;
-	m_nHeight = nHeight;
-	m_nWeight = nWeight;
-	m_csFrom = csFrom;
-}
-
 void CDataInfo::SetData(CString nId, CString csFirstName, CString csLastName, CString nAge, CString eSex, CString nHeight, CString nWeight, CString csFrom)
 {
 	m_nId = _ttoi(nId);
