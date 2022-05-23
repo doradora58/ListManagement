@@ -198,7 +198,18 @@ int CDataManagement::WriteData(TCHAR cWritePath[MAX_PATH], TCHAR cFileName[_MAX_
 		cStdioFile.WriteString(csAge);
 		CString csSex;
 		csSex.Format(_T("%d\n"), tDataInfo.eSex);
-		cStdioFile.WriteString(csSex);
+		switch (tDataInfo.eSex)
+		{
+		case(ESex::MAN):
+			cStdioFile.WriteString(_T("íj\n"));
+			break;
+		case(ESex::WOMAN):
+			cStdioFile.WriteString(_T("èó\n"));
+			break;
+		default:
+			cStdioFile.WriteString(_T("ÇªÇÃëº\n"));
+			break;
+		}
 		CString csHeight;
 		csHeight.Format(_T("%d\n"), tDataInfo.nHeight);
 		cStdioFile.WriteString(csHeight);
