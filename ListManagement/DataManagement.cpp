@@ -4,6 +4,7 @@
 #define FILE_OPEN_FAILED -2 // ファイルが見つからないエラー
 #define CSV_COLUMNS_NUM 8 // csvファイルの列数
 #define WRITE_SUCCESS 0 // 書き込み処理成功
+#define NO_DATA -3 // データがないためエラー
 
 
 CArray<CDataInfo*>* m_pacDataInfo = nullptr;
@@ -39,7 +40,7 @@ CDataManagement::~CDataManagement()
 /// <param name="cReadPath">読み込みパス</param>
 /// <returns>0:成功　0以外:失敗</returns>
 
-int CDataManagement::ReadFileData(wchar_t cReadPath[MAX_PATH])
+int CDataManagement::ReadFileData(TCHAR cReadPath[MAX_PATH])
 {
 	CString csReadPath = cReadPath;
 	// インスタンスの生成
@@ -151,7 +152,7 @@ int CDataManagement::ReadFileData(wchar_t cReadPath[MAX_PATH])
 /// <param name="cFileName">書き出し用のファイル名</param>
 /// <param name="cDataInfo">書き出し用データ</param>
 /// <returns>0：成功　0：以外失敗</returns>
-int CDataManagement::WriteData(wchar_t cWritePath[MAX_PATH], wchar_t cFileName[_MAX_FNAME])
+int CDataManagement::WriteData(TCHAR cWritePath[MAX_PATH], TCHAR cFileName[_MAX_FNAME])
 {
 
 	CString csWritePath = CString(cWritePath) + _T("\\") + CString(cFileName);
@@ -170,9 +171,7 @@ int CDataManagement::WriteData(wchar_t cWritePath[MAX_PATH], wchar_t cFileName[_
 
 	// ファイルの最後にアタッチ
 	cStdioFile.SeekToEnd();
-	//// CDataInfoインスタンスの作成
-	//CDataInfo* cDataInfo = new CDataInfo();
-	//m_pacDataInfo->Add(cDataInfo);
+
 
 	// 追加されたデータの行数だけループ
 	for(int i = 0; i < m_pacDataInfo->GetCount(); i++) 
@@ -218,7 +217,7 @@ int CDataManagement::WriteData(wchar_t cWritePath[MAX_PATH], wchar_t cFileName[_
 }
 
 //******************沓掛試し書き***********************************
-int CDataManagement::ReadFileDataKK(wchar_t cReadPath[MAX_PATH])
+int CDataManagement::ReadFileDataKK(TCHAR cReadPath[MAX_PATH])
 {
 	CString csReadPath = cReadPath;
 	// インスタンスの生成
@@ -228,55 +227,118 @@ int CDataManagement::ReadFileDataKK(wchar_t cReadPath[MAX_PATH])
 	{
 		return NOT_FOUND_FILE;
 	}
-	//インスタンスの生成
-	CStdioFile cStdioFile;
-	// データ出力先ファイルをオープン
-	if (cStdioFile.Open(csReadPath, CFile::modeReadWrite | CFile::shareDenyNone | CFile::modeCreate | CFile::modeNoTruncate) == FALSE)
-	{
-		//　ファイルオープンに失敗
-		return FILE_OPEN_FAILED;
-	}
+	////インスタンスの生成
+	//CFile cFile = CFile();
+	//// データ出力先ファイルをオープン
+	//if (cFile.Open(csReadPath, CFile::modeReadWrite | CFile::shareDenyNone | CFile::modeCreate | CFile::modeNoTruncate) == FALSE)
+	//{
+	//	//　ファイルオープンに失敗
+	//	return FILE_OPEN_FAILED;
+	//}
 
-	// データ情報のメンバ変数が初期化状態の場合newする
-	if (m_pacDataInfo == nullptr)
-	{
-		m_pacDataInfo = new CArray<CDataInfo*>();
-		m_pacDataInfo->RemoveAll();
+	//TCHAR* szCsvData = new TCHAR[cFile.GetLength()];
+	//memset(szCsvData, NULL, cFile.GetLength());
 
-	}
+	//if (cFile.Read(szCsvData, (UINT)cFile.GetLength()) <= 0) 
+	//{
+	//	// データ無し
+	//	return NO_DATA;
+	//}
 
-	CString csLine;
-	cStdioFile.ReadString(csLine);
+	//cFile.Close();
+
+	//// データ情報のメンバ変数が初期化状態の場合newする
+	//if (m_pacDataInfo == nullptr)
+	//{
+	//	m_pacDataInfo = new CArray<CDataInfo*>();
+	//	m_pacDataInfo->RemoveAll();
+
+	//}
+
+	//CString CStr = szCsvData;
+	//delete[](szCsvData);
+
+	//int crLfNum1 = 0;
+	//int crLfNum2 = 0;
+
+	//CArray<CStringArray*> CStringArrayList;
+	//CStringArrayList.RemoveAll();
+
+	//while (true) 
+	//{
+	//	// １行目終端
+	//	crLfNum2 = CStr.Find('\n', crLfNum1 + 1);
+	//	// １行分の文字列
+	//	CString CStr1;
+
+	//	if (crLfNum2 <= 0) 
+	//	{
+	//		CStr1 = CStr.Mid(crLfNum1, CStr.GetLength() + 1 - crLfNum1);
+
+	//	}
+	//	else
+	//	{
+	//		CStr1= CStr.Mid(crLfNum1, crLfNum2 + 1 - crLfNum1);
+	//	}
+
+	//	// 改行コードを削除
+	//	CStr1.Replace(_T("\r\n"), _T(""));
+
+	//	// カンマ区切りで分解用
+	//	int delimiterNum1 = 0;
+	//	int delimiterNum2 = 0;
+	//	CStringArray* CStrArray = new CStringArray();
+	//	CStrArray->RemoveAll();
+
+	//	delimiterNum2 = CStr1.Find(',', delimiterNum1);
+	//	while(delimiterNum2 != -1) 
+	//	{
+	//		CString CStr2;
+	//		if (delimiterNum2 <= 0)
+	//		{
+	//			CStr2 = CStr1.Mid(delimiterNum1, CStr1.GetLength() + 1 - delimiterNum1);
+	//		}
+	//		else
+	//		{
+	//			CStr2 = CStr1.Mid(delimiterNum1,delimiterNum2 + 1 - delimiterNum1);
+
+	//		}
 
 
-	CArray<CString*>* csaData = new CArray<CString*>();
-	csaData->RemoveAll();
 
-	int iStart = 0;
-	int iPos = -1;
-
-	CString* restoken;
-	iPos = csLine.Find(',', iStart);
-
-	while (iPos > -1)
-	{
-		restoken =&csLine.Mid(iStart, iPos - iStart);
-		csaData->Add(restoken);
-
-
-		iStart = iPos + 1;
-		iPos = csLine.Find(',', iStart);
-
-		if (iPos == -1)
-		{
-			restoken = &csLine.Mid(iStart);
-			csaData->Add(restoken);
-		}
-	}
+	//	}
+	//}
 
 
 
-	cStdioFile.Close();
+
+
+	//CArray<CString*>* csaData = new CArray<CString*>();
+	//csaData->RemoveAll();
+
+	//int iStart = 0;
+	//int iPos = -1;
+
+	//CString* restoken;
+	//iPos = csLine.Find(',', iStart);
+
+	//while (iPos > -1)
+	//{
+	//	restoken =&csLine.Mid(iStart, iPos - iStart);
+	//	csaData->Add(restoken);
+
+
+	//	iStart = iPos + 1;
+	//	iPos = csLine.Find(',', iStart);
+
+	//	if (iPos == -1)
+	//	{
+	//		restoken = &csLine.Mid(iStart);
+	//		csaData->Add(restoken);
+	//	}
+	//}
+
+
 
 
 
@@ -284,7 +346,7 @@ int CDataManagement::ReadFileDataKK(wchar_t cReadPath[MAX_PATH])
 	return 0;
 }
 
-int CDataManagement::WriteDataKK(wchar_t cWritePath[MAX_PATH], wchar_t cFileName[_MAX_FNAME])
+int CDataManagement::WriteDataKK(TCHAR cWritePath[MAX_PATH], TCHAR cFileName[_MAX_FNAME])
 {
 	return 0;
 }

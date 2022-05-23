@@ -22,7 +22,7 @@ public:
 	/// </summary>
 	/// <param name="cReadPath">読み込みパス</param>
 	/// <returns>0:成功　0以外:失敗</returns>
-	int ReadFileData(wchar_t cReadPath[MAX_PATH]);
+	int ReadFileData(TCHAR cReadPath[MAX_PATH]);
 
 
 	/// <summary>
@@ -32,12 +32,12 @@ public:
 	/// <param name="cFileName">書き出し用のファイル名</param>
 	/// <param name="cDataInfo">書き出し用データ</param>
 	/// <returns>0：成功　0：以外失敗</returns>
-	int WriteData(wchar_t cWritePath[MAX_PATH], wchar_t cFileName[_MAX_FNAME]);
+	int WriteData(TCHAR cWritePath[MAX_PATH], TCHAR cFileName[_MAX_FNAME]);
 
 
 	//***********沓掛試し書き*********
-	int ReadFileDataKK(wchar_t cReadPath[MAX_PATH]);
-	int WriteDataKK(wchar_t cWritePath[MAX_PATH], wchar_t cFileName[_MAX_FNAME]);
+	int ReadFileDataKK(TCHAR cReadPath[MAX_PATH]);
+	int WriteDataKK(TCHAR cWritePath[MAX_PATH], TCHAR cFileName[_MAX_FNAME]);
 	//********************************
 
 	// **********メンバ変数**********

@@ -174,13 +174,13 @@ void CListManagementDlg::OnShowWindow()
 	// 書き出し用CSVのファイル名
 	CString csFileName=_T("OutputData.csv");
 	// ドライブ名、ディレクトリ名、ファイル名、拡張子
-	wchar_t path[_MAX_PATH], drive[_MAX_PATH], dir[_MAX_PATH], fname[_MAX_PATH], ext[_MAX_PATH];
+	TCHAR path[_MAX_PATH], drive[_MAX_PATH], dir[_MAX_PATH], fname[_MAX_PATH], ext[_MAX_PATH];
 
 	// 実行ファイルのファイルパスを取得
 	if (::GetModuleFileName(NULL, path, _MAX_PATH) != 0)
 	{
 		// ファイルパスを分割
-		::_wsplitpath_s(path, drive, dir, fname, ext);
+		::_splitpath_s(path, drive, dir, fname, ext);
 
 		CString dir2 = dir;
 
@@ -192,7 +192,7 @@ void CListManagementDlg::OnShowWindow()
 	}
 	this->ReadPath.SetWindowText(csReadPath);
 	this->WritePath.SetWindowText(csWritePath);
-	this->FileName.SetWindowTextW(csFileName);
+	this->FileName.SetWindowText(csFileName);
 
 
 }
