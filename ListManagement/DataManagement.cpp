@@ -160,8 +160,6 @@ int CDataManagement::WriteData(TCHAR cWritePath[MAX_PATH], TCHAR cFileName[_MAX_
 	CStdioFile cStdioFile;
 	TDataInfo tDataInfo;
 
-
-
 	// データ出力先ファイルをオープン
 	if (cStdioFile.Open(csWritePath, CFile::modeReadWrite | CFile::shareDenyNone | CFile::modeCreate | CFile::modeNoTruncate) == FALSE) 
 	{
@@ -238,121 +236,184 @@ int CDataManagement::ReadFileDataKK(TCHAR cReadPath[MAX_PATH])
 	{
 		return NOT_FOUND_FILE;
 	}
-	////インスタンスの生成
-	//CFile cFile = CFile();
-	//// データ出力先ファイルをオープン
-	//if (cFile.Open(csReadPath, CFile::modeReadWrite | CFile::shareDenyNone | CFile::modeCreate | CFile::modeNoTruncate) == FALSE)
-	//{
-	//	//　ファイルオープンに失敗
-	//	return FILE_OPEN_FAILED;
-	//}
+	//インスタンスの生成
+	CFile cFile;
+	// データ出力先ファイルをオープン
+	if (cFile.Open(csReadPath, CFile::modeReadWrite | CFile::shareDenyNone | CFile::modeCreate | CFile::modeNoTruncate) == FALSE)
+	{
+		//　ファイルオープンに失敗
+		return FILE_OPEN_FAILED;
+	}
 
-	//TCHAR* szCsvData = new TCHAR[cFile.GetLength()];
-	//memset(szCsvData, NULL, cFile.GetLength());
+	TCHAR* szCsvData = new TCHAR[cFile.GetLength()];
+	memset(szCsvData, NULL, cFile.GetLength());
 
-	//if (cFile.Read(szCsvData, (UINT)cFile.GetLength()) <= 0) 
-	//{
-	//	// データ無し
-	//	return NO_DATA;
-	//}
+	if (cFile.Read(szCsvData, (UINT)cFile.GetLength()) <= 0) 
+	{
+		// データ無し
+		return NO_DATA;
+	}
 
-	//cFile.Close();
+	cFile.Close();
 
-	//// データ情報のメンバ変数が初期化状態の場合newする
-	//if (m_pacDataInfo == nullptr)
-	//{
-	//	m_pacDataInfo = new CArray<CDataInfo*>();
-	//	m_pacDataInfo->RemoveAll();
+	// データ情報のメンバ変数が初期化状態の場合newする
+	if (m_pacDataInfo == nullptr)
+	{
+		m_pacDataInfo = new CArray<CDataInfo*>();
+		m_pacDataInfo->RemoveAll();
+	}
 
-	//}
+	CString CStr = szCsvData;
+	delete[](szCsvData);
+	int crLfNum1 = 0;
+	int crLfNum2 = 0;
 
-	//CString CStr = szCsvData;
-	//delete[](szCsvData);
+	CArray<CStringArray*> CStringArrayList;
+	CStringArrayList.RemoveAll();
 
-	//int crLfNum1 = 0;
-	//int crLfNum2 = 0;
+	while (true) 
+	{
+		CStringArray* CStrArray = new CStringArray();
+		CStrArray->RemoveAll();
+		// １行目終端
+		crLfNum2 = CStr.Find('\n', crLfNum1 + 1);
+		// １行分の文字列
+		CString CStr1;
 
-	//CArray<CStringArray*> CStringArrayList;
-	//CStringArrayList.RemoveAll();
+		if (crLfNum2 <= 0) 
+		{
+			CStr1 = CStr.Mid(crLfNum1, CStr.GetLength() + 1 - crLfNum1);
+		}
+		else
+		{
+			CStr1= CStr.Mid(crLfNum1, crLfNum2 + 1 - crLfNum1);
+		}
 
-	//while (true) 
-	//{
-	//	// １行目終端
-	//	crLfNum2 = CStr.Find('\n', crLfNum1 + 1);
-	//	// １行分の文字列
-	//	CString CStr1;
+		// 改行コードを削除
+		CStr1.Replace(_T("\r\n"), _T(""));
 
-	//	if (crLfNum2 <= 0) 
-	//	{
-	//		CStr1 = CStr.Mid(crLfNum1, CStr.GetLength() + 1 - crLfNum1);
+		// カンマ区切りで分解用
+		int delimiterNum1 = 0;
+		int delimiterNum2 = 0;
+		
+		while(true)
+		{
+			//CStr1.Replace("\n", "");
+			delimiterNum2 = CStr1.Find(',', delimiterNum1 + 1);
 
-	//	}
-	//	else
-	//	{
-	//		CStr1= CStr.Mid(crLfNum1, crLfNum2 + 1 - crLfNum1);
-	//	}
+			CString CStr2 = "";
+			if (delimiterNum2 <= 0)
+			{
+				CStr2 = CStr1.Mid(delimiterNum1, CStr1.GetLength()  - delimiterNum2);
+			}
+			else
+			{
+				CStr2 = CStr1.Mid(delimiterNum1, delimiterNum2 + 1 - delimiterNum1);
+			}
+			CStr2.Replace(_T(","), _T(""));
+			CStrArray->Add(CStr2);
+			if (delimiterNum2 <= 0)
+			{
+				break;
+			}
+			// 次のフィールドを取得できるようにする
+			delimiterNum1 = delimiterNum2;
+		}
 
-	//	// 改行コードを削除
-	//	CStr1.Replace(_T("\r\n"), _T(""));
+		if (CStrArray->GetCount() > 1)
+		{
+			int a = CStrArray->GetCount();
+			CStringArrayList.Add(CStrArray);
+		}
+		// CRLFがあるか確認
+		if (crLfNum2 <= 0)
+		{
+			break;
+		}
+		// 次の行を取得できるようにする
+		crLfNum1 = crLfNum2 + 1;
+	}
 
-	//	// カンマ区切りで分解用
-	//	int delimiterNum1 = 0;
-	//	int delimiterNum2 = 0;
-	//	CStringArray* CStrArray = new CStringArray();
-	//	CStrArray->RemoveAll();
+	// 読み込んだCSVを行数でループ
+	for (int i = 0; i < CStringArrayList.GetCount(); i++)
+	{
+		int a = CStringArrayList.GetCount();
 
-	//	delimiterNum2 = CStr1.Find(',', delimiterNum1);
-	//	while(delimiterNum2 != -1) 
-	//	{
-	//		CString CStr2;
-	//		if (delimiterNum2 <= 0)
-	//		{
-	//			CStr2 = CStr1.Mid(delimiterNum1, CStr1.GetLength() + 1 - delimiterNum1);
-	//		}
-	//		else
-	//		{
-	//			CStr2 = CStr1.Mid(delimiterNum1,delimiterNum2 + 1 - delimiterNum1);
+		// CDataInfoインスタンスの作成
+		CDataInfo* cDataInfo = new CDataInfo();
+		m_pacDataInfo->Add(cDataInfo);
+		for (int j = 0; j < CStringArrayList.ElementAt(i)->GetCount(); j++)
+		{
+			int b = CStringArrayList.ElementAt(i)->GetCount();
+			switch (j)
+			{
+			case 0: // ID
+				if (CString CStr = CStringArrayList.ElementAt(i)->ElementAt(j))
+				{
+					cDataInfo->m_nId = _ttoi(CStringArrayList.ElementAt(i)->ElementAt(j));
+				}
+				break;
+			case 1: // FirstName
+				if (CString CStr = CStringArrayList.ElementAt(i)->ElementAt(j))
+				{
+					cDataInfo->m_csFirstName = CStr;
+				}
+				break;
+			case 2: // LastName
+				if (CString CStr = CStringArrayList.ElementAt(i)->ElementAt(j))
+				{
+					cDataInfo->m_csLastName = CStr;
+				}
+				break;
+			case 3: // Age
+				if (CString CStr = CStringArrayList.ElementAt(i)->ElementAt(j))
+				{
+					cDataInfo->m_nAge = _ttoi(CStr);
+				}
+				break;
+			case 4: // Sex
+				if (CString CStr = CStringArrayList.ElementAt(i)->ElementAt(j))
+				{
 
-	//		}
-
-
-
-	//	}
-	//}
-
-
-
-
-
-	//CArray<CString*>* csaData = new CArray<CString*>();
-	//csaData->RemoveAll();
-
-	//int iStart = 0;
-	//int iPos = -1;
-
-	//CString* restoken;
-	//iPos = csLine.Find(',', iStart);
-
-	//while (iPos > -1)
-	//{
-	//	restoken =&csLine.Mid(iStart, iPos - iStart);
-	//	csaData->Add(restoken);
-
-
-	//	iStart = iPos + 1;
-	//	iPos = csLine.Find(',', iStart);
-
-	//	if (iPos == -1)
-	//	{
-	//		restoken = &csLine.Mid(iStart);
-	//		csaData->Add(restoken);
-	//	}
-	//}
-
-
-
-
-
+					if (CStr.Compare(_T("男")))
+					{
+						cDataInfo->m_eSex = ESex::MAN;
+					}
+					else if (CStr.Compare(_T("女")))
+					{
+						cDataInfo->m_eSex = ESex::WOMAN;
+					}
+					else
+					{
+						cDataInfo->m_eSex = ESex::OTHER;
+					}
+				}
+				break;
+			case 5: // Height
+				if (CString CStr = CStringArrayList.ElementAt(i)->ElementAt(j))
+				{
+					cDataInfo->m_nHeight = _ttoi(CStr);
+				}
+				break;
+			case 6: // Weight
+				if (CString CStr = CStringArrayList.ElementAt(i)->ElementAt(j))
+				{
+					cDataInfo->m_nWeight = _ttoi(CStr);
+				}
+				break;
+			case 7: // From
+				if (CString CStr = CStringArrayList.ElementAt(i)->ElementAt(j))
+				{
+					cDataInfo->m_csFrom = CStr;
+				}
+				break;
+			default:
+				break;
+			}
+		}
+		//delete CStringArrayList.ElementAt(i);
+	}
+	CStringArrayList.RemoveAll();
 
 	return 0;
 }
