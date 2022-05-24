@@ -1,6 +1,12 @@
 #pragma once
 #include "DataInfo.h"
 
+#define NOT_FOUND_FILE -1 // 入力ファイルが存在しないエラー
+#define FILE_OPEN_FAILED -2 // ファイルが見つからないエラー
+#define CSV_COLUMNS_NUM 8 // csvファイルの列数
+#define WRITE_SUCCESS 0 // 書き込み処理成功
+#define NO_DATA -3 // データがないためエラー
+
 class CDataManagement
 {
 

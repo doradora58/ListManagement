@@ -2,6 +2,7 @@
 // ListManagement.h : PROJECT_NAME アプリケーションのメイン ヘッダー ファイルです
 //
 
+
 #pragma once
 
 #ifndef __AFXWIN_H__

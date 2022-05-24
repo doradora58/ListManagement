@@ -241,5 +241,6 @@ void CListManagementDlg::OnBnClickedButton3()
 {
 	CListDialog CListDialog;
 	CListDialog.DoModal();
+
 	// TODO: ここにコントロール通知ハンドラー コードを追加します。
 }
