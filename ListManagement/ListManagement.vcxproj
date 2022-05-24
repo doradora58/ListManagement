@@ -183,6 +183,7 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="ListDialog.h" />
     <ClInclude Include="DataInfo.h" />
     <ClInclude Include="DataManagement.h" />
     <ClInclude Include="framework.h" />
@@ -193,6 +194,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ListDialog.cpp" />
     <ClCompile Include="DataInfo.cpp" />
     <ClCompile Include="DataManagement.cpp" />
     <ClCompile Include="ListManagement.cpp" />

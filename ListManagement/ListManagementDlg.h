@@ -45,4 +45,5 @@ public:
 	CEdit ResultWrite;
 	// 書き出すCSVファイル名
 	CEdit FileName;
+	afx_msg void OnBnClickedButton3();
 };

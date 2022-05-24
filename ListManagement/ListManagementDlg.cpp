@@ -9,6 +9,7 @@
 #include "afxdialogex.h"
 #include "DataInfo.h"
 #include "DataManagement.h"
+#include "ListDialog.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -75,6 +76,7 @@ BEGIN_MESSAGE_MAP(CListManagementDlg, CDialogEx)
 	ON_WM_QUERYDRAGICON()
 	ON_BN_CLICKED(IDC_BUTTON1, &CListManagementDlg::OnBnClickedButton1)
 	ON_BN_CLICKED(IDC_BUTTON2, &CListManagementDlg::OnBnClickedButton2)
+	ON_BN_CLICKED(IDC_BUTTON3, &CListManagementDlg::OnBnClickedButton3)
 END_MESSAGE_MAP()
 
 
@@ -232,4 +234,12 @@ void CListManagementDlg::OnBnClickedButton2()
 	CDataManagement cDataManagement;
 	cDataManagement.WriteData(cWritePath, cFileName);
 
+}
+
+
+void CListManagementDlg::OnBnClickedButton3()
+{
+	CListDialog CListDialog;
+	CListDialog.DoModal();
+	// TODO: ここにコントロール通知ハンドラー コードを追加します。
 }
