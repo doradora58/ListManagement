@@ -221,11 +221,22 @@ int CDataManagement::WriteData(TCHAR cWritePath[MAX_PATH], TCHAR cFileName[_MAX_
     return WRITE_SUCCESS;
 }
 
-void CDataManagement::GetDataInfo(const CArray<CDataInfo*>& pacDataInfo)
+void CDataManagement::GetDataInfo(CArray<CDataInfo*>& pacDataInfo)
 {
-	pacDataInfo = m_pacDataInfo;
+	pacDataInfo.Copy(*m_pacDataInfo);
 
 }
+
+CString CDataManagement::Getm_csFileName()
+{
+	return m_csFileName;
+}
+
+CString CDataManagement::Getm_csReadPath()
+{
+	return m_csReadPath;
+}
+
 
 //******************åBä|ééÇµèëÇ´***********************************
 int CDataManagement::ReadFileDataKK(TCHAR cReadPath[MAX_PATH])

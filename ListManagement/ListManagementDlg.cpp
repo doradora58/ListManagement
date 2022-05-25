@@ -249,6 +249,8 @@ void CListManagementDlg::OnBnClickedButton3()
 
 void CListManagementDlg::OnBnClickedDeletebutton()
 {
-	delete[] cDataInfo;
+//	CDataManagement cDataManagement;
+//	delete cDataInfo.Getm_pacDataInfo_h();
 	// TODO: ここにコントロール通知ハンドラー コードを追加します。
+
 }

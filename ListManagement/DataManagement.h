@@ -40,7 +40,20 @@ public:
 	/// <returns>0：成功　0：以外失敗</returns>
 	int WriteData(TCHAR cWritePath[MAX_PATH], TCHAR cFileName[_MAX_FNAME]);
 
-	void GetDataInfo(const CArray<CDataInfo*>& pacDataInfo);
+	void GetDataInfo(CArray<CDataInfo*>& pacDataInfo);
+
+	/// <summary>
+	/// ファイル名を取得する
+	/// </summary>
+	/// <returns>ファイル名</returns>
+	CString Getm_csFileName();
+
+	/// <summary>
+	/// 出力先パスを取得する
+	/// </summary>
+	/// <returns>出力先パス</returns>
+	CString Getm_csReadPath();
+
 
 
 	//***********沓掛試し書き*********
@@ -48,9 +61,12 @@ public:
 	int WriteDataKK(TCHAR cWritePath[MAX_PATH], TCHAR cFileName[_MAX_FNAME]);
 	//********************************
 
+// いずれはprivateにしたい
+//private:
 	// **********メンバ変数**********
 	//CString m_csWritePath; // ファイル出力先親フォルダパス
 	CString m_csFileName; // ファイル出力先ファイル名
 
 	CString m_csReadPath; // 読み込むファイルの完全パス
+
 };

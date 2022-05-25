@@ -1,9 +1,9 @@
 #pragma once
 
 // 
-enum ESex 
+enum ESex
 {
-	MAN=0, // 男
+	MAN = 0, // 男
 	WOMAN, // 女
 	OTHER //その他
 };
@@ -58,6 +58,18 @@ public:
 
 	void GetData(TDataInfo* ptDataInfo);
 
+	/// <summary>
+	/// m_pacDataInfoのポインタを取得する
+	/// </summary>
+	/// <returns>m_pacDataInfo</returns>
+	CArray<CDataInfo*>* Getm_pacDataInfo_h();
+
+	/// <summary>
+	/// m_pacDataInfoのポインタを
+	/// </summary>
+	/// <param name="pacDataInfo"></param>
+	void Setm_pacDataInfo_h(CArray<CDataInfo*>* pacDataInfo);
+
 	TDataInfo m_tDataInfo;
 
 	int m_nId; // ID
@@ -68,4 +80,6 @@ public:
 	int m_nHeight; // 身長
 	int m_nWeight; // 体重
 	CString m_csFrom; // 出身地
+
+	CArray<CDataInfo*>* m_pacDataInfo_h; // CDataInfo*型CArrayのポインタ
 };
