@@ -15,7 +15,6 @@ IMPLEMENT_DYNAMIC(CListDialog, CDialogEx)
 CListDialog::CListDialog(CWnd* pParent /*=nullptr*/)
 	: CDialogEx(IDD_LISTDIALOG, pParent)
 {
-
 }
 
 CListDialog::~CListDialog()
@@ -75,8 +74,11 @@ void CListDialog::DoDataExchange(CDataExchange* pDX)
 
 	}
 	
-	CDataInfo* pcData = new CDataInfo;
-
+	CArray<CDataInfo*> m_pacDataInfo;
+	CDataManagement cDataManagement;
+	cDataManagement.GetDataInfo(m_pacDataInfo);
+	CString a;
+	a = m_pacDataInfo.ElementAt(0)->m_csFirstName;
 
 	// アイテム1_1～1_3の挿入.
 	LVITEM lvItem1_1;	// アイテム1_1

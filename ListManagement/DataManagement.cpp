@@ -221,6 +221,12 @@ int CDataManagement::WriteData(TCHAR cWritePath[MAX_PATH], TCHAR cFileName[_MAX_
     return WRITE_SUCCESS;
 }
 
+void CDataManagement::GetDataInfo(const CArray<CDataInfo*>& pacDataInfo)
+{
+	pacDataInfo = m_pacDataInfo;
+
+}
+
 //******************ŒBŠ|‚µ‘‚«***********************************
 int CDataManagement::ReadFileDataKK(TCHAR cReadPath[MAX_PATH])
 {
