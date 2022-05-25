@@ -77,6 +77,7 @@ BEGIN_MESSAGE_MAP(CListManagementDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON1, &CListManagementDlg::OnBnClickedButton1)
 	ON_BN_CLICKED(IDC_BUTTON2, &CListManagementDlg::OnBnClickedButton2)
 	ON_BN_CLICKED(IDC_BUTTON3, &CListManagementDlg::OnBnClickedButton3)
+	ON_BN_CLICKED(IDC_DELETEBUTTON, &CListManagementDlg::OnBnClickedDeletebutton)
 END_MESSAGE_MAP()
 
 
@@ -242,5 +243,12 @@ void CListManagementDlg::OnBnClickedButton3()
 	CListDialog CListDialog;
 	CListDialog.DoModal();
 
+	// TODO: ここにコントロール通知ハンドラー コードを追加します。
+}
+
+
+void CListManagementDlg::OnBnClickedDeletebutton()
+{
+	delete[] cDataInfo;
 	// TODO: ここにコントロール通知ハンドラー コードを追加します。
 }
