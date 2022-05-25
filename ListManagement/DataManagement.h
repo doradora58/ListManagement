@@ -40,6 +40,8 @@ public:
 	/// <returns>0：成功　0：以外失敗</returns>
 	int WriteData(TCHAR cWritePath[MAX_PATH], TCHAR cFileName[_MAX_FNAME]);
 
+	void GetDataInfo(const CArray<CDataInfo*>& pacDataInfo);
+
 
 	//***********沓掛試し書き*********
 	int ReadFileDataKK(TCHAR cReadPath[MAX_PATH]);
