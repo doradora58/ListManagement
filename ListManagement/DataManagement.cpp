@@ -2,7 +2,7 @@
 #include "DataManagement.h"
 
 
-
+// メンバ変数のデータ情報
 CArray<CDataInfo*>* m_pacDataInfo = nullptr;
 
 
@@ -132,7 +132,7 @@ int CDataManagement::ReadFileData(TCHAR cReadPath[MAX_PATH])
 		tDataInfo.nWeight,
 		tDataInfo.csFrom);
 	*/
-    return 0;
+    return SUCCESS;
 }
 
 
@@ -164,6 +164,11 @@ int CDataManagement::WriteData(TCHAR cWritePath[MAX_PATH], TCHAR cFileName[_MAX_
 
 	// ファイルの最後にアタッチ
 	cStdioFile.SeekToEnd();
+
+	if (m_pacDataInfo == nullptr)
+	{
+		return NO_DATAINFO;
+	}
 
 
 	// 追加されたデータの行数だけループ
@@ -217,7 +222,7 @@ int CDataManagement::WriteData(TCHAR cWritePath[MAX_PATH], TCHAR cFileName[_MAX_
 	// ファイルをクローズ
 	cStdioFile.Close();
 
-    return WRITE_SUCCESS;
+    return SUCCESS;
 }
 
 void CDataManagement::GetDataInfo(CArray<CDataInfo*>& pacDataInfo)
@@ -262,8 +267,8 @@ int CDataManagement::ReadFileDataKK(TCHAR cReadPath[MAX_PATH])
 
 	if (cFile.Read(szCsvData, (UINT)cFile.GetLength()) <= 0) 
 	{
-		// データ無し
-		return NO_DATA;
+		// CSVのデータ無し
+		return NO_CSV_DATA;
 	}
 
 	cFile.Close();
@@ -441,10 +446,10 @@ int CDataManagement::ReadFileDataKK(TCHAR cReadPath[MAX_PATH])
 	}
 	CStringArrayList.RemoveAll();
 
-	return 0;
+	return SUCCESS;
 }
 
 int CDataManagement::WriteDataKK(TCHAR cWritePath[MAX_PATH], TCHAR cFileName[_MAX_FNAME])
 {
-	return 0;
+	return SUCCESS;
 }
