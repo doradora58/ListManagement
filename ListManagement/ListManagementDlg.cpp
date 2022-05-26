@@ -189,9 +189,6 @@ void CListManagementDlg::OnShowWindow()
 
 		// 入力、出力パスの結合
 		CString root = _T("\\ListManagement");
-		int a = dir2.Find(root);
-		a;
-
 		csReadPath = CString(drive) + dir2.Left(dir2.Find(root)) + _T("\\ListManagement\\ListManagement\\Document\\Input\\Data.csv");
 		csWritePath = CString(drive) + dir2.Left(dir2.Find(root)) + _T("\\ListManagement\\ListManagement\\Document\\Output");
 
