@@ -355,75 +355,86 @@ int CDataManagement::ReadFileDataKK(TCHAR cReadPath[MAX_PATH])
 		// CDataInfoインスタンスの作成
 		CDataInfo* cDataInfo = new CDataInfo();
 		m_pacDataInfo->Add(cDataInfo);
-		for (int j = 0; j < CStringArrayList.ElementAt(i)->GetCount(); j++)
-		{
-			int b = CStringArrayList.ElementAt(i)->GetCount();
-			switch (j)
-			{
-			case 0: // ID
-				if (CString CStr = CStringArrayList.ElementAt(i)->ElementAt(j))
-				{
-					cDataInfo->m_nId = _ttoi(CStringArrayList.ElementAt(i)->ElementAt(j));
-				}
-				break;
-			case 1: // FirstName
-				if (CString CStr = CStringArrayList.ElementAt(i)->ElementAt(j))
-				{
-					cDataInfo->m_csFirstName = CStr;
-				}
-				break;
-			case 2: // LastName
-				if (CString CStr = CStringArrayList.ElementAt(i)->ElementAt(j))
-				{
-					cDataInfo->m_csLastName = CStr;
-				}
-				break;
-			case 3: // Age
-				if (CString CStr = CStringArrayList.ElementAt(i)->ElementAt(j))
-				{
-					cDataInfo->m_nAge = _ttoi(CStr);
-				}
-				break;
-			case 4: // Sex
-				if (CString CStr = CStringArrayList.ElementAt(i)->ElementAt(j))
-				{
+		cDataInfo->SetData(
+			CStringArrayList.ElementAt(i)->ElementAt(0),
+			CStringArrayList.ElementAt(i)->ElementAt(1),
+			CStringArrayList.ElementAt(i)->ElementAt(2),
+			CStringArrayList.ElementAt(i)->ElementAt(3),
+			CStringArrayList.ElementAt(i)->ElementAt(4),
+			CStringArrayList.ElementAt(i)->ElementAt(5),
+			CStringArrayList.ElementAt(i)->ElementAt(6),
+			CStringArrayList.ElementAt(i)->ElementAt(7));
 
-					if (CStr.Compare(_T("男")))
-					{
-						cDataInfo->m_eSex = ESex::MAN;
-					}
-					else if (CStr.Compare(_T("女")))
-					{
-						cDataInfo->m_eSex = ESex::WOMAN;
-					}
-					else
-					{
-						cDataInfo->m_eSex = ESex::OTHER;
-					}
-				}
-				break;
-			case 5: // Height
-				if (CString CStr = CStringArrayList.ElementAt(i)->ElementAt(j))
-				{
-					cDataInfo->m_nHeight = _ttoi(CStr);
-				}
-				break;
-			case 6: // Weight
-				if (CString CStr = CStringArrayList.ElementAt(i)->ElementAt(j))
-				{
-					cDataInfo->m_nWeight = _ttoi(CStr);
-				}
-				break;
-			case 7: // From
-				if (CString CStr = CStringArrayList.ElementAt(i)->ElementAt(j))
-				{
-					cDataInfo->m_csFrom = CStr;
-				}
-				break;
-			default:
-				break;
-			}
-		}
+		//for (int j = 0; j < CStringArrayList.ElementAt(i)->GetCount(); j++)
+		//{
+
+		//	int b = CStringArrayList.ElementAt(i)->GetCount();
+		//	switch (j)
+		//	{
+		//	case 0: // ID
+		//		if (CString CStr = CStringArrayList.ElementAt(i)->ElementAt(j))
+		//		{
+		//			cDataInfo->m_nId = _ttoi(CStringArrayList.ElementAt(i)->ElementAt(j));
+		//		}
+		//		break;
+		//	case 1: // FirstName
+		//		if (CString CStr = CStringArrayList.ElementAt(i)->ElementAt(j))
+		//		{
+		//			cDataInfo->m_csFirstName = CStr;
+		//		}
+		//		break;
+		//	case 2: // LastName
+		//		if (CString CStr = CStringArrayList.ElementAt(i)->ElementAt(j))
+		//		{
+		//			cDataInfo->m_csLastName = CStr;
+		//		}
+		//		break;
+		//	case 3: // Age
+		//		if (CString CStr = CStringArrayList.ElementAt(i)->ElementAt(j))
+		//		{
+		//			cDataInfo->m_nAge = _ttoi(CStr);
+		//		}
+		//		break;
+		//	case 4: // Sex
+		//		if (CString CStr = CStringArrayList.ElementAt(i)->ElementAt(j))
+		//		{
+
+		//			if (CStr.Compare(_T("男")))
+		//			{
+		//				cDataInfo->m_eSex = ESex::MAN;
+		//			}
+		//			else if (CStr.Compare(_T("女")))
+		//			{
+		//				cDataInfo->m_eSex = ESex::WOMAN;
+		//			}
+		//			else
+		//			{
+		//				cDataInfo->m_eSex = ESex::OTHER;
+		//			}
+		//		}
+		//		break;
+		//	case 5: // Height
+		//		if (CString CStr = CStringArrayList.ElementAt(i)->ElementAt(j))
+		//		{
+		//			cDataInfo->m_nHeight = _ttoi(CStr);
+		//		}
+		//		break;
+		//	case 6: // Weight
+		//		if (CString CStr = CStringArrayList.ElementAt(i)->ElementAt(j))
+		//		{
+		//			cDataInfo->m_nWeight = _ttoi(CStr);
+		//		}
+		//		break;
+		//	case 7: // From
+		//		if (CString CStr = CStringArrayList.ElementAt(i)->ElementAt(j))
+		//		{
+		//			cDataInfo->m_csFrom = CStr;
+		//		}
+		//		break;
+		//	default:
+		//		break;
+		//	}
+		//}
 		//delete CStringArrayList.ElementAt(i);
 	}
 	CStringArrayList.RemoveAll();

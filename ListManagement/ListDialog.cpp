@@ -38,7 +38,6 @@ void CListDialog::DoDataExchange(CDataExchange* pDX)
 	LVCOLUMN lvCol[CSV_COLUMNS_NUM];	// カラム1
 	for (int i = 0; i < CSV_COLUMNS_NUM ; i++)
 	{
-		lvCol[i].iSubItem;
 		lvCol[i].mask = LVCF_FMT | LVCF_TEXT | LVCF_WIDTH;	// 配置, ヘッダ名, 幅をセット.
 		lvCol[i].fmt = LVCFMT_LEFT;		// 左寄せ.
 		switch (i)
