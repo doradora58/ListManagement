@@ -16,18 +16,7 @@ CDataManagement::CDataManagement()
 /// </summary>
 CDataManagement::~CDataManagement()
 {
-	//if (m_pacDataInfo != nullptr)
-	//{
-	//	for (int i = 0; i < m_pacDataInfo->GetCount(); i++)
-	//	{
 
-	//		CDataInfo* pDataInfo = m_pacDataInfo->GetAt(i);
-	//		delete pDataInfo;
-	//	}
-	//	m_pacDataInfo->RemoveAll();
-	//	delete m_pacDataInfo;
-	//	m_pacDataInfo = NULL;
-	//}
 }
 
 /// <summary>
@@ -261,7 +250,7 @@ int CDataManagement::ReadFileDataKK(TCHAR cReadPath[MAX_PATH])
 		//　ファイルオープンに失敗
 		return FILE_OPEN_FAILED;
 	}
-
+	// オブジェクトの生成
 	TCHAR* szCsvData = new TCHAR[cFile.GetLength()];
 	memset(szCsvData, NULL, cFile.GetLength());
 
@@ -281,15 +270,19 @@ int CDataManagement::ReadFileDataKK(TCHAR cReadPath[MAX_PATH])
 	}
 
 	CString CStr = szCsvData;
+	// オブジェクトの開放
 	delete[](szCsvData);
+
 	int crLfNum1 = 0;
 	int crLfNum2 = 0;
 
+	// インスタンスの生成
 	CArray<CStringArray*> CStringArrayList;
 	CStringArrayList.RemoveAll();
 
 	while (true) 
 	{
+		// オブジェクトの生成
 		CStringArray* CStrArray = new CStringArray();
 		CStrArray->RemoveAll();
 		// １行目終端
@@ -354,9 +347,7 @@ int CDataManagement::ReadFileDataKK(TCHAR cReadPath[MAX_PATH])
 	// 読み込んだCSVを行数でループ
 	for (int i = 0; i < CStringArrayList.GetCount(); i++)
 	{
-		int a = CStringArrayList.GetCount();
-
-		// CDataInfoインスタンスの作成
+		// CDataInfoオブジェクトの生成
 		CDataInfo* cDataInfo = new CDataInfo();
 		m_pacDataInfo->Add(cDataInfo);
 		cDataInfo->SetData(
@@ -369,80 +360,12 @@ int CDataManagement::ReadFileDataKK(TCHAR cReadPath[MAX_PATH])
 			CStringArrayList.ElementAt(i)->ElementAt(6),
 			CStringArrayList.ElementAt(i)->ElementAt(7));
 
-		//for (int j = 0; j < CStringArrayList.ElementAt(i)->GetCount(); j++)
-		//{
 
-		//	int b = CStringArrayList.ElementAt(i)->GetCount();
-		//	switch (j)
-		//	{
-		//	case 0: // ID
-		//		if (CString CStr = CStringArrayList.ElementAt(i)->ElementAt(j))
-		//		{
-		//			cDataInfo->m_nId = _ttoi(CStringArrayList.ElementAt(i)->ElementAt(j));
-		//		}
-		//		break;
-		//	case 1: // FirstName
-		//		if (CString CStr = CStringArrayList.ElementAt(i)->ElementAt(j))
-		//		{
-		//			cDataInfo->m_csFirstName = CStr;
-		//		}
-		//		break;
-		//	case 2: // LastName
-		//		if (CString CStr = CStringArrayList.ElementAt(i)->ElementAt(j))
-		//		{
-		//			cDataInfo->m_csLastName = CStr;
-		//		}
-		//		break;
-		//	case 3: // Age
-		//		if (CString CStr = CStringArrayList.ElementAt(i)->ElementAt(j))
-		//		{
-		//			cDataInfo->m_nAge = _ttoi(CStr);
-		//		}
-		//		break;
-		//	case 4: // Sex
-		//		if (CString CStr = CStringArrayList.ElementAt(i)->ElementAt(j))
-		//		{
-
-		//			if (CStr.Compare(_T("男")))
-		//			{
-		//				cDataInfo->m_eSex = ESex::MAN;
-		//			}
-		//			else if (CStr.Compare(_T("女")))
-		//			{
-		//				cDataInfo->m_eSex = ESex::WOMAN;
-		//			}
-		//			else
-		//			{
-		//				cDataInfo->m_eSex = ESex::OTHER;
-		//			}
-		//		}
-		//		break;
-		//	case 5: // Height
-		//		if (CString CStr = CStringArrayList.ElementAt(i)->ElementAt(j))
-		//		{
-		//			cDataInfo->m_nHeight = _ttoi(CStr);
-		//		}
-		//		break;
-		//	case 6: // Weight
-		//		if (CString CStr = CStringArrayList.ElementAt(i)->ElementAt(j))
-		//		{
-		//			cDataInfo->m_nWeight = _ttoi(CStr);
-		//		}
-		//		break;
-		//	case 7: // From
-		//		if (CString CStr = CStringArrayList.ElementAt(i)->ElementAt(j))
-		//		{
-		//			cDataInfo->m_csFrom = CStr;
-		//		}
-		//		break;
-		//	default:
-		//		break;
-		//	}
-		//}
+		// CStringArrayの要素オブジェクトを破棄
 		delete CStringArrayList.ElementAt(i);
 	}
+	
 	CStringArrayList.RemoveAll();
-
 	return SUCCESS;
 }
 
@@ -450,3 +373,6 @@ int CDataManagement::WriteDataKK(TCHAR cWritePath[MAX_PATH], TCHAR cFileName[_MA
 {
 	return SUCCESS;
 }
+
+
+

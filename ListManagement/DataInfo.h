@@ -70,7 +70,7 @@ public:
 	/// <param name="pacDataInfo"></param>
 	void Setm_pacDataInfo_h(CArray<CDataInfo*>* pacDataInfo);
 
-	TDataInfo m_tDataInfo;
+	//TDataInfo m_tDataInfo;
 
 	int m_nId; // ID
 	CString m_csFirstName; // ñºëOÅiê´Åj

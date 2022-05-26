@@ -263,7 +263,8 @@ void CListManagementDlg::OnBnClickedDeletebutton()
 		{
 			delete m_pacDataInfo->ElementAt(i);
 		}
-
+		m_pacDataInfo->RemoveAll();
+		delete m_pacDataInfo;
 		m_pacDataInfo = nullptr;
 	}
 	// TODO: ここにコントロール通知ハンドラー コードを追加します。
