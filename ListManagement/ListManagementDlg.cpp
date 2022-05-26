@@ -15,6 +15,11 @@
 #define new DEBUG_NEW
 #endif
 
+// ボタンの有効／無効化
+#define CONTVALINVAL(id) \
+{CButton* button = (CButton*)GetDlgItem(id); \
+button->EnableWindow(m_pacDataInfo != nullptr);}
+
 extern CArray<CDataInfo*>* m_pacDataInfo;
 
 // アプリケーションのバージョン情報に使われる CAboutDlg ダイアログ
@@ -114,6 +119,10 @@ BOOL CListManagementDlg::OnInitDialog()
 
 	// TODO: 初期化をここに追加します。
 	OnShowWindow();
+
+	CONTVALINVAL(IDC_DELETEBUTTON);
+	CONTVALINVAL(IDC_BUTTON3);
+	CONTVALINVAL(IDC_BUTTON2);
 
 	return TRUE;  // フォーカスをコントロールに設定した場合を除き、TRUE を返します。
 }
@@ -218,6 +227,10 @@ void CListManagementDlg::OnBnClickedButton1()
 	csResult.Format(_T("%d"), b);
 	this->ReadResult.SetWindowText(csResult);
 
+	CONTVALINVAL(IDC_DELETEBUTTON);
+	CONTVALINVAL(IDC_BUTTON3);
+	CONTVALINVAL(IDC_BUTTON2);
+
 }
 
 // CSV書き込み関数の実行
@@ -266,6 +279,11 @@ void CListManagementDlg::OnBnClickedDeletebutton()
 
 		m_pacDataInfo = nullptr;
 	}
+
+	CONTVALINVAL(IDC_DELETEBUTTON);
+	CONTVALINVAL(IDC_BUTTON3);
+	CONTVALINVAL(IDC_BUTTON2);
+
 	// TODO: ここにコントロール通知ハンドラー コードを追加します。
 
 }
