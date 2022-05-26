@@ -35,7 +35,6 @@ CDataManagement::~CDataManagement()
 /// </summary>
 /// <param name="cReadPath">読み込みパス</param>
 /// <returns>0:成功　0以外:失敗</returns>
-
 int CDataManagement::ReadFileData(TCHAR cReadPath[MAX_PATH])
 {
 	CString csReadPath = cReadPath;
@@ -435,7 +434,7 @@ int CDataManagement::ReadFileDataKK(TCHAR cReadPath[MAX_PATH])
 		//		break;
 		//	}
 		//}
-		//delete CStringArrayList.ElementAt(i);
+		delete CStringArrayList.ElementAt(i);
 	}
 	CStringArrayList.RemoveAll();
 
