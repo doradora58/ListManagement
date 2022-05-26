@@ -25,12 +25,20 @@ void CListDialog::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
 
+	//CListCtrl* pListCtrl1 = (CListCtrl*)GetDlgItem(IDC_LIST1);	// GetDlgItemでリストコントロールIDC_LIST1のオブジェクトポインタをpListCtrl1に格納.((CListCtrl *)にキャスト.)
+	
+	CArray<CDataInfo*> acDataInfo;
+	CDataManagement cDataManagement;
+	cDataManagement.GetDataInfo(acDataInfo);
 
+	// リストコントロールにカラム(列)ヘッダと各アイテム(行項目)挿入.
 	CListCtrl* pListCtrl1 = (CListCtrl*)GetDlgItem(IDC_LIST1);	// GetDlgItemでリストコントロールIDC_LIST1のオブジェクトポインタをpListCtrl1に格納.((CListCtrl *)にキャスト.)
+	
 	// カラム1の挿入.
 	LVCOLUMN lvCol[CSV_COLUMNS_NUM];	// カラム1
-	for (int i = 7; i >= 0; i--)
+	for (int i = 0; i < CSV_COLUMNS_NUM ; i++)
 	{
+		lvCol[i].iSubItem;
 		lvCol[i].mask = LVCF_FMT | LVCF_TEXT | LVCF_WIDTH;	// 配置, ヘッダ名, 幅をセット.
 		lvCol[i].fmt = LVCFMT_LEFT;		// 左寄せ.
 		switch (i)
@@ -42,6 +50,7 @@ void CListDialog::DoDataExchange(CDataExchange* pDX)
 		case 1:
 			lvCol[i].pszText = _T("FirstName"); // 列名
 			lvCol[i].cx = 70;	// 幅
+			for (int i = 0; i < acDataInfo.GetCount(); i++)
 			break;
 		case 2:
 			lvCol[i].pszText = _T("LastName"); // 列名
@@ -70,35 +79,97 @@ void CListDialog::DoDataExchange(CDataExchange* pDX)
 		default:
 			break;
 		}
-		pListCtrl1->InsertColumn(0, &lvCol[i]);	// pListCtrl1->InsertColumnでカラムヘッダにlvCol1を挿入.
+			pListCtrl1->InsertColumn(i, &lvCol[i]);	// pListCtrl1->InsertColumnでカラムヘッダにlvCol1を挿入.
+	}
+	CString csId;
+	CString csAge;
+	CString csHeight;
+	CString csSex;
+	CString csWeight;
+	CString csFrom;
+
+	for (int j = 0; j < acDataInfo.GetCount(); j++) 
+	{
+		for (int i = 0; i < CSV_COLUMNS_NUM; i++)
+		{
+
+			LVITEM lyItem[CSV_COLUMNS_NUM];
+			lyItem[i].mask = LVIF_TEXT;	// アイテムテキストのみセット.
+			lyItem[i].pszText = _T("Taro");	// アイテムテキストは"Taro".
+			lyItem[i].iItem = j;	// 0行
+			lyItem[i].iSubItem = i;	// 0列
+
+			switch (i)
+			{
+			case 0:
+				lyItem[i].iSubItem = i;	// 0列
+				csId.Format(_T("%d"), acDataInfo.ElementAt(j)->m_nId);
+				lyItem[i].pszText = csId.GetBuffer(); // 列名
+				pListCtrl1->InsertItem(&lyItem[i]);
+				
+				break;
+			case 1:
+				lyItem[i].iSubItem = i;	// 0列
+				lyItem[i].pszText = acDataInfo.ElementAt(j)->m_csFirstName.GetBuffer();
+				pListCtrl1->SetItem(&lyItem[i]);
+				
+				break;
+			case 2:
+				lyItem[i].iSubItem = i;	// 0列
+				lyItem[i].pszText = acDataInfo.ElementAt(j)->m_csLastName.GetBuffer();
+				pListCtrl1->SetItem(&lyItem[i]);
+				
+				break;
+			case 3:
+				lyItem[i].iSubItem = i;	// 0列				
+				csAge.Format(_T("%d"), acDataInfo.ElementAt(j)->m_nAge);
+				lyItem[i].pszText = csAge.GetBuffer(); // 列名
+				pListCtrl1->SetItem(&lyItem[i]);
+				
+				break;
+			case 4:
+				lyItem[i].iSubItem = i;	// 0列
+				switch (acDataInfo.ElementAt(j)->m_eSex)
+				{
+				case ESex::MAN:
+						lyItem[i].pszText = _T("男");
+						break;
+				case ESex::WOMAN:
+						lyItem[i].pszText = _T("女");
+						break;
+				case ESex::OTHER:
+						lyItem[i].pszText = _T("その他");
+						break;
+				}
+				pListCtrl1->SetItem(&lyItem[i]);
+				
+				break;
+			case 5:
+				lyItem[i].iSubItem = i;	// 0列
+				csHeight.Format(_T("%d"), acDataInfo.ElementAt(j)->m_nHeight);
+				lyItem[i].pszText = csHeight.GetBuffer(); // 列名
+				pListCtrl1->SetItem(&lyItem[i]);
+				
+				break;
+			case 6:
+				lyItem[i].iSubItem = i;	// 0列
+				csWeight.Format(_T("%d"), acDataInfo.ElementAt(j)->m_nWeight);
+				lyItem[i].pszText = csWeight.GetBuffer(); // 列名
+				pListCtrl1->SetItem(&lyItem[i]);
+				
+				break;
+			case 7:
+				lyItem[i].iSubItem = i;	// 0列
+				lyItem[i].pszText = acDataInfo.ElementAt(j)->m_csFrom.GetBuffer();
+				pListCtrl1->SetItem(&lyItem[i]);
+			
+				break;
+			default:
+				break;
+			}
+		}
 
 	}
-	
-	CArray<CDataInfo*> m_pacDataInfo;
-	CDataManagement cDataManagement;
-	cDataManagement.GetDataInfo(m_pacDataInfo);
-	CString a;
-	a = m_pacDataInfo.ElementAt(0)->m_csFirstName;
-
-	// アイテム1_1～1_3の挿入.
-	LVITEM lvItem1_1;	// アイテム1_1
-	lvItem1_1.mask = LVIF_TEXT;	// アイテムテキストのみセット.
-	lvItem1_1.pszText = _T("太郎");	// アイテムテキストは"Taro".
-	lvItem1_1.iItem = 0;	// 0行
-	lvItem1_1.iSubItem = 0;	// 0列
-	pListCtrl1->InsertItem(&lvItem1_1);	// pListCtrl1->InsertItemでlvItem1_1を挿入.
-	LVITEM lvItem1_2;	// アイテム1_2
-	lvItem1_2.mask = LVIF_TEXT;	// アイテムテキストのみセット.
-	lvItem1_2.pszText = _T("20");	// アイテムテキストは"20".
-	lvItem1_2.iItem = 0;	// 0行
-	lvItem1_2.iSubItem = 1;	// 1列
-	pListCtrl1->SetItem(&lvItem1_2);	// pListCtrl1->SetItemでlvItem1_2を挿入.(正確にはセット.)
-	LVITEM lvItem1_3;	// アイテム1_3
-	lvItem1_3.mask = LVIF_TEXT;	// アイテムテキストのみセット.
-	lvItem1_3.pszText = _T("Tokyo");	// アイテムテキストは"Tokyo".
-	lvItem1_3.iItem = 0;	// 0行
-	lvItem1_3.iSubItem = 2;	// 2列
-	pListCtrl1->SetItem(&lvItem1_3);	// pListCtrl1->SetItemでlvItem1_3を挿入.(正確にはセット.)
 
 }
 
