@@ -227,6 +227,17 @@ void CDataManagement::GetDataInfo(CArray<CDataInfo*>& pacDataInfo)
 
 }
 
+CString CDataManagement::Getm_csFileName()
+{
+	return m_csFileName;
+}
+
+CString CDataManagement::Getm_csReadPath()
+{
+	return m_csReadPath;
+}
+
+
 //******************ŒBŠ|‚µ‘‚«***********************************
 int CDataManagement::ReadFileDataKK(TCHAR cReadPath[MAX_PATH])
 {

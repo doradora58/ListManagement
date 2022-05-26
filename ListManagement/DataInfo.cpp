@@ -77,4 +77,13 @@ void CDataInfo::GetData(TDataInfo* ptDataInfo)
 	*ptDataInfo = m_tDataInfo;
 }
 
+CArray<CDataInfo*>* CDataInfo::Getm_pacDataInfo_h()
+{
+	return m_pacDataInfo_h;
+}
+
+void CDataInfo::Setm_pacDataInfo_h(CArray<CDataInfo*>* pacDataInfo)
+{
+	m_pacDataInfo_h = pacDataInfo;
+}
 
