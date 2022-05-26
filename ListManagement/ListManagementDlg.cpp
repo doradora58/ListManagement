@@ -209,11 +209,14 @@ void CListManagementDlg::OnBnClickedButton1()
 	CString csReadPath;
 	this->ReadPath.GetWindowText(csReadPath);
 	TCHAR* cReadPath = csReadPath.GetBuffer();
-	int b;
-	CDataManagement a;
 
-	b = a.ReadFileDataKK(cReadPath);
-	//	b = a.ReadFileDataKK(cReadPath);
+	CDataManagement cDataManagement;
+
+	int b = cDataManagement.ReadFileDataKK(cReadPath);
+	//int	b = cDataManagement.ReadFileDataKK(cReadPath);
+	CString csResult;
+	csResult.Format(_T("%d"), b);
+	this->ReadResult.SetWindowText(csResult);
 
 }
 
@@ -233,8 +236,10 @@ void CListManagementDlg::OnBnClickedButton2()
 	TCHAR* cFileName = csFileName.GetBuffer();
 
 	CDataManagement cDataManagement;
-	cDataManagement.WriteData(cWritePath, cFileName);
-
+	int b = cDataManagement.WriteData(cWritePath, cFileName);
+	CString csResult;
+	csResult.Format(_T("%d"), b);
+	this->ResultWrite.SetWindowText(csResult);
 }
 
 
