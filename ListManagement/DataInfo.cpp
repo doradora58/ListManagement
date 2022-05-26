@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "DataInfo.h"
 
-
+extern CArray<CDataInfo*>* m_pacDataInfo;
 
 /// <summary>
 /// コンストラクタ
@@ -75,6 +75,14 @@ void CDataInfo::SetData(TDataInfo tDataInfo)
 	
 }
 
+void CDataInfo::SetData(CArray<CStringArray*>* CStringArrayList)
+{	
+	int b=6;
+	int** a{};
+	*a = nullptr;
+	*a = &b;
+}
+
 void CDataInfo::GetData(int* nId, CString* csFirstName, CString* csLastName, int* nAge, ESex* eSex, int* nHeight, int* nWeight, CString* csFrom)
 {
 	*nId = m_nId;
@@ -102,5 +110,9 @@ CArray<CDataInfo*>* CDataInfo::Getm_pacDataInfo_h()
 void CDataInfo::Setm_pacDataInfo_h(CArray<CDataInfo*>* pacDataInfo)
 {
 	m_pacDataInfo_h = pacDataInfo;
+}
+
+void CDataInfo::SetMember()
+{
 }
 

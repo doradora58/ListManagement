@@ -54,6 +54,8 @@ public:
 
 	void SetData(TDataInfo tDataInfo);
 
+	void SetData(CArray<CStringArray*>* CStringArrayList);
+
 	void GetData(int* nId, CString* csFirstName, CString* csLastName, int* nAge, ESex* eSex, int* nHeight, int* nWeight, CString* csFrom);
 
 	void GetData(TDataInfo* ptDataInfo);
@@ -82,4 +84,9 @@ public:
 	CString m_csFrom; // 出身地
 
 	CArray<CDataInfo*>* m_pacDataInfo_h; // CDataInfo*型CArrayのポインタ
+
+private:
+
+	// メンバ変数にセットする。
+	void SetMember();
 };

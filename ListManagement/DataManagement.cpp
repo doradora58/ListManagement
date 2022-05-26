@@ -350,6 +350,9 @@ int CDataManagement::ReadFileDataKK(TCHAR cReadPath[MAX_PATH])
 		// CDataInfoオブジェクトの生成
 		CDataInfo* cDataInfo = new CDataInfo();
 		m_pacDataInfo->Add(cDataInfo);
+		// 
+//	}
+
 		cDataInfo->SetData(
 			CStringArrayList.ElementAt(i)->ElementAt(0),
 			CStringArrayList.ElementAt(i)->ElementAt(1),
