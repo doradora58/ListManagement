@@ -90,7 +90,8 @@ int CDataManagement::ReadFileData(TCHAR cReadPath[MAX_PATH])
 			{
 				i++;
 				ReadData[i] = csReadLineText.Mid(nStart);
-				m_pacDataInfo->ElementAt(I)->SetData(
+//				m_pacDataInfo->ElementAt(I)->SetData(
+				cDataInfo->SetData(
 					ReadData[0],
 					ReadData[1],
 					ReadData[2],
@@ -99,7 +100,6 @@ int CDataManagement::ReadFileData(TCHAR cReadPath[MAX_PATH])
 					ReadData[5],
 					ReadData[6],
 					ReadData[7]);
-				m_pacDataInfo->ElementAt(I)->m_tDataInfo.csFirstName = ReadData[0];
 			}
 		}
 	}

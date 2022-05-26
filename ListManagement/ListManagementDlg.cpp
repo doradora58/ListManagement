@@ -15,7 +15,7 @@
 #define new DEBUG_NEW
 #endif
 
-
+extern CArray<CDataInfo*>* m_pacDataInfo;
 
 // アプリケーションのバージョン情報に使われる CAboutDlg ダイアログ
 
@@ -24,12 +24,12 @@ class CAboutDlg : public CDialogEx
 public:
 	CAboutDlg();
 
-// ダイアログ データ
+	// ダイアログ データ
 #ifdef AFX_DESIGN_TIME
 	enum { IDD = IDD_ABOUTBOX };
 #endif
 
-	protected:
+protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV サポート
 
 // 実装
@@ -175,7 +175,7 @@ void CListManagementDlg::OnShowWindow()
 	// 書き出し用ファイルのパス
 	CString csWritePath;
 	// 書き出し用CSVのファイル名
-	CString csFileName=_T("OutputData.csv");
+	CString csFileName = _T("OutputData.csv");
 	// ドライブ名、ディレクトリ名、ファイル名、拡張子
 	TCHAR path[_MAX_PATH], drive[_MAX_PATH], dir[_MAX_PATH], fname[_MAX_PATH], ext[_MAX_PATH];
 
@@ -189,8 +189,8 @@ void CListManagementDlg::OnShowWindow()
 
 		// 入力、出力パスの結合
 		CString root = _T("ListManagement");
-		csReadPath = CString(drive) + dir2.Left(_tcsclen(dir2) - dir2.Find(root))+_T("\\ListManagement\\ListManagement\\Document\\Input\\Data.csv");
-		csWritePath= CString(drive) + dir2.Left(_tcsclen(dir2) - dir2.Find(root)) + _T("\\ListManagement\\ListManagement\\Document\\Output");
+		csReadPath = CString(drive) + dir2.Left(_tcsclen(dir2) - dir2.Find(root)) + _T("\\ListManagement\\ListManagement\\Document\\Input\\Data.csv");
+		csWritePath = CString(drive) + dir2.Left(_tcsclen(dir2) - dir2.Find(root)) + _T("\\ListManagement\\ListManagement\\Document\\Output");
 
 	}
 	this->ReadPath.SetWindowText(csReadPath);
@@ -204,7 +204,7 @@ void CListManagementDlg::OnShowWindow()
 void CListManagementDlg::OnBnClickedButton1()
 {
 	// TODO: ここにコントロール通知ハンドラー コードを追加します。
-	
+
 	// 読み込みパスの取得
 	CString csReadPath;
 	this->ReadPath.GetWindowText(csReadPath);
@@ -212,8 +212,8 @@ void CListManagementDlg::OnBnClickedButton1()
 	int b;
 	CDataManagement a;
 
-//	b = a.ReadFileDataKK(cReadPath);
-	b = a.ReadFileDataKK(cReadPath);
+	b = a.ReadFileData(cReadPath);
+	//	b = a.ReadFileDataKK(cReadPath);
 
 }
 
@@ -249,8 +249,15 @@ void CListManagementDlg::OnBnClickedButton3()
 
 void CListManagementDlg::OnBnClickedDeletebutton()
 {
-//	CDataManagement cDataManagement;
-//	delete cDataInfo.Getm_pacDataInfo_h();
+	if (m_pacDataInfo != nullptr)
+	{
+		for (int i = 0; i < m_pacDataInfo->GetCount(); i++)
+		{
+			delete m_pacDataInfo->ElementAt(i);
+		}
+
+		m_pacDataInfo = nullptr;
+	}
 	// TODO: ここにコントロール通知ハンドラー コードを追加します。
 
 }
