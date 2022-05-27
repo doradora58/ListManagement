@@ -274,11 +274,12 @@ void CListManagementDlg::OnBnClickedDeletebutton()
 	{
 		for (int i = 0; i < m_pacDataInfo->GetCount(); i++)
 		{
-			delete m_pacDataInfo->ElementAt(i);
+			CDataInfo* pDdataInfo = m_pacDataInfo->GetAt(i);
+			delete pDdataInfo;
 		}
 		m_pacDataInfo->RemoveAll();
 		delete m_pacDataInfo;
-		m_pacDataInfo = nullptr;
+
 	}
 
 	CONTVALINVAL(IDC_DELETEBUTTON);

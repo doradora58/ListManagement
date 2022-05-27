@@ -1,7 +1,6 @@
 #include "pch.h"
 #include "DataManagement.h"
 
-
 // メンバ変数のデータ情報
 CArray<CDataInfo*>* m_pacDataInfo = nullptr;
 
@@ -109,37 +108,8 @@ int CDataManagement::ReadFileData(TCHAR cReadPath[MAX_PATH])
 			}
 		}
 	}
-	// m_patDataInfoList->ElementAt(0).nId = (int)csReadLineText.Mid(nStart, nPos - nStart);
-	// 沓掛　試し書き
-	//cDataInfo->m_ptDataInfo->nId= _ttoi(csReadLineText.Mid(nStart, nPos - nStart));
-	//m_patDataInfoList->ElementAt(0)->nId = _ttoi(csReadLineText.Mid(nStart, nPos - nStart));	
 	cFile.Close();
-
-
-
-	// デバッグ用データ
-	/*
-	TDataInfo tDataInfo;
-	tDataInfo.nId = 111;
-	tDataInfo.csFirstName = _T("aaa");
-	tDataInfo.csLastName= _T("aaa");
-	tDataInfo.nAge = 2324;
-	tDataInfo.eSex = ESex::MAN;
-	tDataInfo.nHeight = 123;
-	tDataInfo.nWeight = 344;
-	tDataInfo.csFrom = _T("ooita");
-
-	m_pacDataInfo->ElementAt(0)->SetData(
-		tDataInfo.nId,
-		tDataInfo.csFirstName,
-		tDataInfo.csLastName,
-		tDataInfo.nAge,
-		tDataInfo.eSex,
-		tDataInfo.nHeight,
-		tDataInfo.nWeight,
-		tDataInfo.csFrom);
-	*/
-	return SUCCESS;
+    return SUCCESS;
 }
 
 
@@ -269,12 +239,10 @@ int CDataManagement::ReadFileDataKK(TCHAR cReadPath[MAX_PATH])
 		return FILE_OPEN_FAILED;
 	}
 	// オブジェクトの生成
-//	TCHAR* szCsvData = new TCHAR[cFile.GetLength()];
-	//TCHAR tc;
-	//memset(szCsvData, NULL, cFile.GetLength());
-	CString szCsvData;
+	TCHAR* szCsvData = new TCHAR[cFile.GetLength()];
+	memset(szCsvData, NULL, cFile.GetLength());
 
-	if (cFile.Read(&szCsvData, (UINT)cFile.GetLength()) <= 0)
+	if (cFile.Read(szCsvData, (UINT)cFile.GetLength()) <= 0)
 	{
 		// CSVのデータ無し
 		return NO_CSV_DATA;
@@ -291,7 +259,7 @@ int CDataManagement::ReadFileDataKK(TCHAR cReadPath[MAX_PATH])
 
 	CString CStr = szCsvData;
 	// オブジェクトの開放
-//	delete[](szCsvData);
+	delete[](szCsvData);
 
 	int crLfNum1 = 0;
 	int crLfNum2 = 0;
@@ -300,7 +268,7 @@ int CDataManagement::ReadFileDataKK(TCHAR cReadPath[MAX_PATH])
 	CArray<CStringArray*> CStringArrayList;
 	CStringArrayList.RemoveAll();
 
-	while (true)
+	while (true) 
 	{
 		// オブジェクトの生成
 		CStringArray* CStrArray = new CStringArray();
@@ -310,13 +278,13 @@ int CDataManagement::ReadFileDataKK(TCHAR cReadPath[MAX_PATH])
 		// １行分の文字列
 		CString CStr1;
 
-		if (crLfNum2 <= 0)
+		if (crLfNum2 <= 0) 
 		{
 			CStr1 = CStr.Mid(crLfNum1, CStr.GetLength() + 1 - crLfNum1);
 		}
 		else
 		{
-			CStr1 = CStr.Mid(crLfNum1, crLfNum2 + 1 - crLfNum1);
+			CStr1= CStr.Mid(crLfNum1, crLfNum2 + 1 - crLfNum1);
 		}
 
 		// 改行コードを削除
@@ -325,8 +293,8 @@ int CDataManagement::ReadFileDataKK(TCHAR cReadPath[MAX_PATH])
 		// カンマ区切りで分解用
 		int delimiterNum1 = 0;
 		int delimiterNum2 = 0;
-
-		while (true)
+		
+		while(true)
 		{
 			//CStr1.Replace("\n", "");
 			delimiterNum2 = CStr1.Find(',', delimiterNum1 + 1);
@@ -334,7 +302,7 @@ int CDataManagement::ReadFileDataKK(TCHAR cReadPath[MAX_PATH])
 			CString CStr2 = "";
 			if (delimiterNum2 <= 0)
 			{
-				CStr2 = CStr1.Mid(delimiterNum1, CStr1.GetLength() - delimiterNum2);
+				CStr2 = CStr1.Mid(delimiterNum1, CStr1.GetLength()  - delimiterNum2);
 			}
 			else
 			{
@@ -372,12 +340,6 @@ int CDataManagement::ReadFileDataKK(TCHAR cReadPath[MAX_PATH])
 		m_pacDataInfo->Add(cDataInfo);
 		// 
 //	}
-		//CString buf[8];
-
-		//for (int j = 0; j < CStringArrayList.ElementAt(i)->GetCount(); j++)
-		//{
-		//	buf[j] = CStringArrayList.ElementAt(i)->ElementAt(j);
-		//}
 
 		cDataInfo->SetData(
 			CStringArrayList.ElementAt(i)->ElementAt(0),
@@ -389,30 +351,13 @@ int CDataManagement::ReadFileDataKK(TCHAR cReadPath[MAX_PATH])
 			CStringArrayList.ElementAt(i)->ElementAt(6),
 			CStringArrayList.ElementAt(i)->ElementAt(7));
 
-		//cDataInfo->SetData(
-		//	buf[0],
-		//	buf[1],
-		//	buf[2],
-		//	buf[3],
-		//	buf[4],
-		//	buf[5],
-		//	buf[6],
-		//	buf[7]
-		//);
-
-
 		// CStringArrayの要素オブジェクトを破棄
-		delete CStringArrayList.ElementAt(i);
+		CStringArray* pCStringArray = CStringArrayList.GetAt(i);
+		pCStringArray->RemoveAll();
+		delete pCStringArray;
+
 	}
-
-	//for (int i = 0; i < CStringArrayList.GetCount(); i++)
-	//{
-	//	for (int j = 0; j < CStringArrayList.ElementAt(i)->GetCount();j++)
-	//	{
-	//		delete CStringArrayList.ElementAt(i)->ElementAt(j);
-	//	}
-	//}
-
+	
 	CStringArrayList.RemoveAll();
 	return SUCCESS;
 }
