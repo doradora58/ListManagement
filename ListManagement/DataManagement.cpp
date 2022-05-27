@@ -48,11 +48,13 @@ int CDataManagement::ReadFileData(TCHAR cReadPath[MAX_PATH])
 		m_pacDataInfo->RemoveAll();
 
 	}
-	
+
 	// 一行分テキスト読み込み
 	CString csReadLineText;
 
-	
+	CArray<CStringArray*> CStringArrayList;
+	CStringArrayList.RemoveAll();
+
 	for (int I = 0; cFile.ReadString(csReadLineText); I++)
 	{
 		// CDataInfoインスタンスの作成
@@ -65,40 +67,56 @@ int CDataManagement::ReadFileData(TCHAR cReadPath[MAX_PATH])
 		// nPosをnStartから','までの文字数
 		nPos = csReadLineText.Find(',', nStart);
 		// 読み込みデータの一時保存配列
-		CString ReadData[CSV_COLUMNS_NUM];
+
+
+		CStringArray* CStrArray = new CStringArray();
+		CStrArray->RemoveAll();
+
+		CString ReadData;
 
 		// 一行分のカンマ区切りの要素を抜き出す
 		for (int i = 0; nPos > -1; i++)
 		{
-			ReadData[i] = csReadLineText.Mid(nStart, nPos - nStart);
+
+
+			ReadData = csReadLineText.Mid(nStart, nPos - nStart);
 			nStart = nPos + 1;
 			// nPosを次のカンマ位置まで移動。カンマがない場合、nPosに-1を返す。
 			nPos = csReadLineText.Find(',', nStart);
+			CStrArray->Add(ReadData);
+
 			if (nPos == -1)
 			{
-				i++;
-				ReadData[i] = csReadLineText.Mid(nStart);
-//				m_pacDataInfo->ElementAt(I)->SetData(
+				ReadData = csReadLineText.Mid(nStart);
+				CStrArray->Add(ReadData);
+
+		
+				CStringArrayList.Add(CStrArray);
+
+				//				m_pacDataInfo->ElementAt(I)->SetData(
+
 				cDataInfo->SetData(
-					ReadData[0],
-					ReadData[1],
-					ReadData[2],
-					ReadData[3],
-					ReadData[4],
-					ReadData[5],
-					ReadData[6],
-					ReadData[7]);
+					CStringArrayList.ElementAt(I)->ElementAt(0),
+					CStringArrayList.ElementAt(I)->ElementAt(1),
+					CStringArrayList.ElementAt(I)->ElementAt(2),
+					CStringArrayList.ElementAt(I)->ElementAt(3),
+					CStringArrayList.ElementAt(I)->ElementAt(4),
+					CStringArrayList.ElementAt(I)->ElementAt(5),
+					CStringArrayList.ElementAt(I)->ElementAt(6),
+					CStringArrayList.ElementAt(I)->ElementAt(7));
+
+				delete CStringArrayList.ElementAt(I);
 			}
 		}
 	}
-		// m_patDataInfoList->ElementAt(0).nId = (int)csReadLineText.Mid(nStart, nPos - nStart);
-		// 沓掛　試し書き
-		//cDataInfo->m_ptDataInfo->nId= _ttoi(csReadLineText.Mid(nStart, nPos - nStart));
-		//m_patDataInfoList->ElementAt(0)->nId = _ttoi(csReadLineText.Mid(nStart, nPos - nStart));	
+	// m_patDataInfoList->ElementAt(0).nId = (int)csReadLineText.Mid(nStart, nPos - nStart);
+	// 沓掛　試し書き
+	//cDataInfo->m_ptDataInfo->nId= _ttoi(csReadLineText.Mid(nStart, nPos - nStart));
+	//m_patDataInfoList->ElementAt(0)->nId = _ttoi(csReadLineText.Mid(nStart, nPos - nStart));	
 	cFile.Close();
 
 
-	
+
 	// デバッグ用データ
 	/*
 	TDataInfo tDataInfo;
@@ -121,7 +139,7 @@ int CDataManagement::ReadFileData(TCHAR cReadPath[MAX_PATH])
 		tDataInfo.nWeight,
 		tDataInfo.csFrom);
 	*/
-    return SUCCESS;
+	return SUCCESS;
 }
 
 
@@ -145,7 +163,7 @@ int CDataManagement::WriteData(TCHAR cWritePath[MAX_PATH], TCHAR cFileName[_MAX_
 	TDataInfo tDataInfo;
 
 	// データ出力先ファイルをオープン
-	if (cStdioFile.Open(csWritePath, CFile::modeReadWrite | CFile::shareDenyNone | CFile::modeCreate | CFile::modeNoTruncate) == FALSE) 
+	if (cStdioFile.Open(csWritePath, CFile::modeReadWrite | CFile::shareDenyNone | CFile::modeCreate | CFile::modeNoTruncate) == FALSE)
 	{
 		//　ファイルオープンに失敗
 		return FILE_OPEN_FAILED;
@@ -161,7 +179,7 @@ int CDataManagement::WriteData(TCHAR cWritePath[MAX_PATH], TCHAR cFileName[_MAX_
 
 
 	// 追加されたデータの行数だけループ
-	for(int i = 0; i < m_pacDataInfo->GetCount(); i++) 
+	for (int i = 0; i < m_pacDataInfo->GetCount(); i++)
 	{
 		// 書き込み用のデータを取得
 		m_pacDataInfo->ElementAt(i)->GetData(
@@ -207,11 +225,11 @@ int CDataManagement::WriteData(TCHAR cWritePath[MAX_PATH], TCHAR cFileName[_MAX_
 
 	}
 
-	
+
 	// ファイルをクローズ
 	cStdioFile.Close();
 
-    return SUCCESS;
+	return SUCCESS;
 }
 
 void CDataManagement::GetDataInfo(CArray<CDataInfo*>& pacDataInfo)
@@ -251,10 +269,12 @@ int CDataManagement::ReadFileDataKK(TCHAR cReadPath[MAX_PATH])
 		return FILE_OPEN_FAILED;
 	}
 	// オブジェクトの生成
-	TCHAR* szCsvData = new TCHAR[cFile.GetLength()];
-	memset(szCsvData, NULL, cFile.GetLength());
+//	TCHAR* szCsvData = new TCHAR[cFile.GetLength()];
+	//TCHAR tc;
+	//memset(szCsvData, NULL, cFile.GetLength());
+	CString szCsvData;
 
-	if (cFile.Read(szCsvData, (UINT)cFile.GetLength()) <= 0) 
+	if (cFile.Read(&szCsvData, (UINT)cFile.GetLength()) <= 0)
 	{
 		// CSVのデータ無し
 		return NO_CSV_DATA;
@@ -271,7 +291,7 @@ int CDataManagement::ReadFileDataKK(TCHAR cReadPath[MAX_PATH])
 
 	CString CStr = szCsvData;
 	// オブジェクトの開放
-	delete[](szCsvData);
+//	delete[](szCsvData);
 
 	int crLfNum1 = 0;
 	int crLfNum2 = 0;
@@ -280,7 +300,7 @@ int CDataManagement::ReadFileDataKK(TCHAR cReadPath[MAX_PATH])
 	CArray<CStringArray*> CStringArrayList;
 	CStringArrayList.RemoveAll();
 
-	while (true) 
+	while (true)
 	{
 		// オブジェクトの生成
 		CStringArray* CStrArray = new CStringArray();
@@ -290,13 +310,13 @@ int CDataManagement::ReadFileDataKK(TCHAR cReadPath[MAX_PATH])
 		// １行分の文字列
 		CString CStr1;
 
-		if (crLfNum2 <= 0) 
+		if (crLfNum2 <= 0)
 		{
 			CStr1 = CStr.Mid(crLfNum1, CStr.GetLength() + 1 - crLfNum1);
 		}
 		else
 		{
-			CStr1= CStr.Mid(crLfNum1, crLfNum2 + 1 - crLfNum1);
+			CStr1 = CStr.Mid(crLfNum1, crLfNum2 + 1 - crLfNum1);
 		}
 
 		// 改行コードを削除
@@ -305,8 +325,8 @@ int CDataManagement::ReadFileDataKK(TCHAR cReadPath[MAX_PATH])
 		// カンマ区切りで分解用
 		int delimiterNum1 = 0;
 		int delimiterNum2 = 0;
-		
-		while(true)
+
+		while (true)
 		{
 			//CStr1.Replace("\n", "");
 			delimiterNum2 = CStr1.Find(',', delimiterNum1 + 1);
@@ -314,7 +334,7 @@ int CDataManagement::ReadFileDataKK(TCHAR cReadPath[MAX_PATH])
 			CString CStr2 = "";
 			if (delimiterNum2 <= 0)
 			{
-				CStr2 = CStr1.Mid(delimiterNum1, CStr1.GetLength()  - delimiterNum2);
+				CStr2 = CStr1.Mid(delimiterNum1, CStr1.GetLength() - delimiterNum2);
 			}
 			else
 			{
@@ -352,6 +372,12 @@ int CDataManagement::ReadFileDataKK(TCHAR cReadPath[MAX_PATH])
 		m_pacDataInfo->Add(cDataInfo);
 		// 
 //	}
+		//CString buf[8];
+
+		//for (int j = 0; j < CStringArrayList.ElementAt(i)->GetCount(); j++)
+		//{
+		//	buf[j] = CStringArrayList.ElementAt(i)->ElementAt(j);
+		//}
 
 		cDataInfo->SetData(
 			CStringArrayList.ElementAt(i)->ElementAt(0),
@@ -363,11 +389,30 @@ int CDataManagement::ReadFileDataKK(TCHAR cReadPath[MAX_PATH])
 			CStringArrayList.ElementAt(i)->ElementAt(6),
 			CStringArrayList.ElementAt(i)->ElementAt(7));
 
+		//cDataInfo->SetData(
+		//	buf[0],
+		//	buf[1],
+		//	buf[2],
+		//	buf[3],
+		//	buf[4],
+		//	buf[5],
+		//	buf[6],
+		//	buf[7]
+		//);
+
 
 		// CStringArrayの要素オブジェクトを破棄
 		delete CStringArrayList.ElementAt(i);
 	}
-	
+
+	//for (int i = 0; i < CStringArrayList.GetCount(); i++)
+	//{
+	//	for (int j = 0; j < CStringArrayList.ElementAt(i)->GetCount();j++)
+	//	{
+	//		delete CStringArrayList.ElementAt(i)->ElementAt(j);
+	//	}
+	//}
+
 	CStringArrayList.RemoveAll();
 	return SUCCESS;
 }
