@@ -1,7 +1,6 @@
 #include "pch.h"
 #include "DataManagement.h"
 
-
 // メンバ変数のデータ情報
 CArray<CDataInfo*>* m_pacDataInfo = nullptr;
 
@@ -91,36 +90,7 @@ int CDataManagement::ReadFileData(TCHAR cReadPath[MAX_PATH])
 			}
 		}
 	}
-		// m_patDataInfoList->ElementAt(0).nId = (int)csReadLineText.Mid(nStart, nPos - nStart);
-		// 沓掛　試し書き
-		//cDataInfo->m_ptDataInfo->nId= _ttoi(csReadLineText.Mid(nStart, nPos - nStart));
-		//m_patDataInfoList->ElementAt(0)->nId = _ttoi(csReadLineText.Mid(nStart, nPos - nStart));	
 	cFile.Close();
-
-
-	
-	// デバッグ用データ
-	/*
-	TDataInfo tDataInfo;
-	tDataInfo.nId = 111;
-	tDataInfo.csFirstName = _T("aaa");
-	tDataInfo.csLastName= _T("aaa");
-	tDataInfo.nAge = 2324;
-	tDataInfo.eSex = ESex::MAN;
-	tDataInfo.nHeight = 123;
-	tDataInfo.nWeight = 344;
-	tDataInfo.csFrom = _T("ooita");
-
-	m_pacDataInfo->ElementAt(0)->SetData(
-		tDataInfo.nId,
-		tDataInfo.csFirstName,
-		tDataInfo.csLastName,
-		tDataInfo.nAge,
-		tDataInfo.eSex,
-		tDataInfo.nHeight,
-		tDataInfo.nWeight,
-		tDataInfo.csFrom);
-	*/
     return SUCCESS;
 }
 
@@ -254,7 +224,7 @@ int CDataManagement::ReadFileDataKK(TCHAR cReadPath[MAX_PATH])
 	TCHAR* szCsvData = new TCHAR[cFile.GetLength()];
 	memset(szCsvData, NULL, cFile.GetLength());
 
-	if (cFile.Read(szCsvData, (UINT)cFile.GetLength()) <= 0) 
+	if (cFile.Read(szCsvData, (UINT)cFile.GetLength()) <= 0)
 	{
 		// CSVのデータ無し
 		return NO_CSV_DATA;
@@ -363,9 +333,11 @@ int CDataManagement::ReadFileDataKK(TCHAR cReadPath[MAX_PATH])
 			CStringArrayList.ElementAt(i)->ElementAt(6),
 			CStringArrayList.ElementAt(i)->ElementAt(7));
 
-
 		// CStringArrayの要素オブジェクトを破棄
-		delete CStringArrayList.ElementAt(i);
+		CStringArray* pCStringArray = CStringArrayList.GetAt(i);
+		pCStringArray->RemoveAll();
+		delete pCStringArray;
+
 	}
 	
 	CStringArrayList.RemoveAll();
