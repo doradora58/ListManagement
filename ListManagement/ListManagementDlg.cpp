@@ -279,7 +279,7 @@ void CListManagementDlg::OnBnClickedDeletebutton()
 		}
 		m_pacDataInfo->RemoveAll();
 		delete m_pacDataInfo;
-
+		m_pacDataInfo = nullptr;
 	}
 
 	CONTVALINVAL(IDC_DELETEBUTTON);
