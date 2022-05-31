@@ -6,10 +6,14 @@
 #include "framework.h"
 #include "ListManagement.h"
 #include "ListManagementDlg.h"
+#include "Library.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
+
+
+
 
 
 // CListManagementApp

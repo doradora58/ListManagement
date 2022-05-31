@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "DataInfo.h"
+#include "Library.h"
 
 extern CArray<CDataInfo*>* m_pacDataInfo;
 

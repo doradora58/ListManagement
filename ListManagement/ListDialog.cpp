@@ -6,7 +6,7 @@
 #include "afxdialogex.h"
 #include "ListDialog.h"
 #include "DataManagement.h"
-
+#include "Library.h"
 
 // CListDialog ダイアログ
 

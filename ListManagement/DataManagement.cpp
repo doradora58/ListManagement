@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "DataManagement.h"
+#include "Library.h"
 
 // メンバ変数のデータ情報
 CArray<CDataInfo*>* m_pacDataInfo = nullptr;
@@ -7,7 +8,7 @@ CArray<CDataInfo*>* m_pacDataInfo = nullptr;
 
 CDataManagement::CDataManagement()
 {
-
+	m_nCount = 0;
 }
 
 /// <summary>
@@ -345,16 +346,24 @@ CString CDataManagement::Getm_csReadPath()
 }
 
 
+
+
 //******************沓掛試し書き***********************************
 int CDataManagement::ReadFileDataKK(TCHAR cReadPath[MAX_PATH])
 {
+	int nRet = SUCCESS;
+	CString csLogText;
 	CString csReadPath = cReadPath;
 	// インスタンスの生成
 	CFileFind cFileFind;
 	// 入力ファイルが存在するか確認
 	if (cFileFind.FindFile(csReadPath) == 0) // FindFile関数の戻り値が0以外で正常完了
 	{
-		return NOT_FOUND_FILE;
+		//　入力ファイルが存在しない
+		nRet= NOT_FOUND_FILE;
+		csLogText.Format(_T("Result=%d"), nRet);
+		LOG(csLogText.GetBuffer(), _T(__FILE__), __LINE__, _T(__FUNCTION__))
+		return nRet;
 	}
 	//インスタンスの生成
 	CFile cFile;
@@ -362,16 +371,22 @@ int CDataManagement::ReadFileDataKK(TCHAR cReadPath[MAX_PATH])
 	if (cFile.Open(csReadPath, CFile::modeReadWrite | CFile::shareDenyNone | CFile::modeCreate | CFile::modeNoTruncate) == FALSE)
 	{
 		//　ファイルオープンに失敗
-		return FILE_OPEN_FAILED;
+		nRet = FILE_OPEN_FAILED;
+		csLogText.Format(_T("Result=%d"), nRet);
+		LOG(csLogText.GetBuffer(), _T(__FILE__), __LINE__, _T(__FUNCTION__))
+		return nRet;
 	}
 	// オブジェクトの生成
 	TCHAR* szCsvData = new TCHAR[cFile.GetLength()];
 	memset(szCsvData, NULL, cFile.GetLength());
-
+	
 	if (cFile.Read(szCsvData, (UINT)cFile.GetLength()) <= 0)
 	{
 		// CSVのデータ無し
-		return NO_CSV_DATA;
+		nRet = NO_CSV_DATA;
+		csLogText.Format(_T("Result=%d"), nRet);
+		LOG(csLogText.GetBuffer(), _T(__FILE__), __LINE__, _T(__FUNCTION__))
+		return nRet;
 	}
 
 	cFile.Close();
@@ -412,7 +427,8 @@ int CDataManagement::ReadFileDataKK(TCHAR cReadPath[MAX_PATH])
 		{
 			CStr1 = CStr.Mid(crLfNum1, crLfNum2 + 1 - crLfNum1);
 		}
-
+		int a;
+		a = CStr1.GetLength();
 		// 改行コードを削除
 		CStr1.Replace(_T("\r\n"), _T(""));
 
@@ -444,6 +460,9 @@ int CDataManagement::ReadFileDataKK(TCHAR cReadPath[MAX_PATH])
 			}
 			CStr2.Replace(_T(","), _T(""));
 			CStrArray->Add(CStr2);
+			m_nCount += 1;
+			
+
 			if (delimiterNum2 <= 0)
 			{
 				break;
@@ -456,6 +475,7 @@ int CDataManagement::ReadFileDataKK(TCHAR cReadPath[MAX_PATH])
 		{
 			int a = CStrArray->GetCount();
 			CStringArrayList.Add(CStrArray);
+
 		}
 		// CRLFがあるか確認
 		if (crLfNum2 <= 0)
@@ -493,7 +513,9 @@ int CDataManagement::ReadFileDataKK(TCHAR cReadPath[MAX_PATH])
 	}
 
 	CStringArrayList.RemoveAll();
-	return SUCCESS;
+	csLogText.Format(_T("Result=%d"), nRet);
+	LOG(csLogText.GetBuffer(), _T(__FILE__), __LINE__, _T(__FUNCTION__))
+	return nRet;
 }
 
 int CDataManagement::WriteDataKK(TCHAR cWritePath[MAX_PATH], TCHAR cFileName[_MAX_FNAME])

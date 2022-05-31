@@ -1,13 +1,6 @@
 #pragma once
 #include "DataInfo.h"
 
-#define NOT_FOUND_FILE -1 // 入力ファイルが存在しないエラー
-#define FILE_OPEN_FAILED -2 // ファイルが見つからないエラー
-#define CSV_COLUMNS_NUM 8 // csvファイルの列数
-#define SUCCESS 0 // 処理成功
-#define NO_CSV_DATA -3 // CSVデータがないためエラー
-#define NO_DATAINFO -4 // データ情報にデータがないためエラー
-#define CSV_FORMAT_ERROR -5
 
 class CDataManagement
 {
@@ -73,4 +66,5 @@ public:
 
 	CString m_csReadPath; // 読み込むファイルの完全パス
 
+	int m_nCount;
 };

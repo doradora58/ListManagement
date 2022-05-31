@@ -10,15 +10,14 @@
 #include "DataInfo.h"
 #include "DataManagement.h"
 #include "ListDialog.h"
+#include "Library.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
 
-// ボタンの有効／無効化
-#define CONTVALINVAL(id) \
-{CButton* button = (CButton*)GetDlgItem(id); \
-button->EnableWindow(m_pacDataInfo != nullptr);}
+
+
 
 extern CArray<CDataInfo*>* m_pacDataInfo;
 
@@ -73,6 +72,7 @@ void CListManagementDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_EDIT3, WritePath);
 	DDX_Control(pDX, IDC_EDIT6, ResultWrite);
 	DDX_Control(pDX, IDC_EDIT4, FileName);
+	DDX_Control(pDX, IDC_EDIT2, Count);
 }
 
 BEGIN_MESSAGE_MAP(CListManagementDlg, CDialogEx)
@@ -206,7 +206,6 @@ void CListManagementDlg::OnShowWindow()
 	this->WritePath.SetWindowText(csWritePath);
 	this->FileName.SetWindowText(csFileName);
 
-
 }
 
 // CSV読み取り関数の実行
@@ -226,11 +225,9 @@ void CListManagementDlg::OnBnClickedButton1()
 	CString csResult;
 	csResult.Format(_T("%d"), b);
 	this->ReadResult.SetWindowText(csResult);
-
 	CONTVALINVAL(IDC_DELETEBUTTON);
 	CONTVALINVAL(IDC_BUTTON3);
 	CONTVALINVAL(IDC_BUTTON2);
-
 }
 
 // CSV書き込み関数の実行
