@@ -60,6 +60,8 @@ public:
 
 	void GetData(TDataInfo* ptDataInfo);
 
+	static void SetItemNum(int ItemNum);
+
 	/// <summary>
 	/// m_pacDataInfoのポインタを取得する
 	/// </summary>
@@ -84,6 +86,11 @@ public:
 	CString m_csFrom; // 出身地
 
 	CArray<CDataInfo*>* m_pacDataInfo_h; // CDataInfo*型CArrayのポインタ
+
+	// 初めに読み込んだデータの一行目のカンマ数
+	static int m_snItemNum;
+
+
 
 private:
 

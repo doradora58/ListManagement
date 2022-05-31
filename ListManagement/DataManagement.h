@@ -7,6 +7,7 @@
 #define SUCCESS 0 // 処理成功
 #define NO_CSV_DATA -3 // CSVデータがないためエラー
 #define NO_DATAINFO -4 // データ情報にデータがないためエラー
+#define CSV_FORMAT_ERROR -5
 
 class CDataManagement
 {
@@ -55,6 +56,8 @@ public:
 	/// <returns>出力先パス</returns>
 	CString Getm_csReadPath();
 
+	// 
+	int CountCommaOcuurence(CString& cstr) const;
 
 
 	//***********沓掛試し書き*********

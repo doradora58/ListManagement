@@ -221,7 +221,7 @@ void CListManagementDlg::OnBnClickedButton1()
 
 	CDataManagement cDataManagement;
 
-	int b = cDataManagement.ReadFileDataKK(cReadPath);
+	int b = cDataManagement.ReadFileData(cReadPath);
 	//int	b = cDataManagement.ReadFileDataKK(cReadPath);
 	CString csResult;
 	csResult.Format(_T("%d"), b);

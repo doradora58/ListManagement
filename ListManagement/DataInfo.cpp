@@ -102,6 +102,12 @@ void CDataInfo::GetData(TDataInfo* ptDataInfo)
 	//*ptDataInfo = m_tDataInfo;
 }
 
+void CDataInfo::SetItemNum(int ItemNum)
+{
+	if(m_snItemNum == -1 && m_pacDataInfo == nullptr)
+	m_snItemNum = ItemNum;
+}
+
 CArray<CDataInfo*>* CDataInfo::Getm_pacDataInfo_h()
 {
 	return m_pacDataInfo_h;
@@ -116,3 +122,4 @@ void CDataInfo::SetMember()
 {
 }
 
+int CDataInfo::m_snItemNum = -1;
