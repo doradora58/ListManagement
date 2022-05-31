@@ -49,7 +49,8 @@ public:
 	/// <returns>o—ÍæƒpƒX</returns>
 	CString Getm_csReadPath();
 
-	int GetCount();
+	// 
+	int CountCommaOcuurence(CString& cstr) const;
 
 
 	//***********ŒBŠ|‚µ‘‚«*********
