@@ -171,7 +171,9 @@ int CDataManagement::ReadFileData(TCHAR cReadPath[MAX_PATH])
 			}
 			// is–Ú‚ÌƒJƒ“ƒ}”‚ªm_snItemNum‚Æ“™‚µ‚¢‚©”äŠr
 			if (CDataInfo::m_snItemNum != nCommaCount)
+			{
 				throw CSV_FORMAT_ERROR;
+			}
 		}
 
 		// «ˆÈ~–¢Š®¬
