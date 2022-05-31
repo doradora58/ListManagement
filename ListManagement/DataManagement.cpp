@@ -367,9 +367,9 @@ int CDataManagement::ReadFileDataKK(TCHAR cReadPath[MAX_PATH])
 		return nRet;
 	}
 	//インスタンスの生成
-	CFile cFile;
+	CStdioFile cFile;
 	// データ出力先ファイルをオープン
-	if (cFile.Open(csReadPath, CFile::modeReadWrite | CFile::shareDenyNone | CFile::modeCreate | CFile::modeNoTruncate) == FALSE)
+	if (cFile.Open(csReadPath, CFile::modeReadWrite | CFile::shareDenyNone | CFile::modeCreate | CFile::modeNoTruncate | CFile::typeBinary) == FALSE)
 	{
 		//　ファイルオープンに失敗
 		nRet = FILE_OPEN_FAILED;
@@ -377,9 +377,10 @@ int CDataManagement::ReadFileDataKK(TCHAR cReadPath[MAX_PATH])
 		LOG(csLogText.GetBuffer(), _T(__FILE__), __LINE__, _T(__FUNCTION__))
 		return nRet;
 	}
+
 	// オブジェクトの生成
-	TCHAR* szCsvData = new TCHAR[cFile.GetLength()];
-	memset(szCsvData, NULL, cFile.GetLength());
+	TCHAR* szCsvData = new TCHAR[cFile.GetLength() + 1];
+	memset(szCsvData, NULL, cFile.GetLength() + 1);
 	
 	if (cFile.Read(szCsvData, (UINT)cFile.GetLength()) <= 0)
 	{
