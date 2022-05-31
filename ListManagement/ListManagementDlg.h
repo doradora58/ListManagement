@@ -47,4 +47,6 @@ public:
 	CEdit FileName;
 	afx_msg void OnBnClickedButton3();
 	afx_msg void OnBnClickedDeletebutton();
+	// 読み取り行数
+	CEdit Count;
 };
