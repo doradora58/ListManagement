@@ -221,8 +221,8 @@ void CListManagementDlg::OnBnClickedButton1()
 
 	CDataManagement cDataManagement;
 
-	int b = cDataManagement.ReadFileData(cReadPath);
-	//int	b = cDataManagement.ReadFileDataKK(cReadPath);
+//	int b = cDataManagement.ReadFileData(cReadPath);
+	int	b = cDataManagement.ReadFileDataKK(cReadPath);
 	CString csResult;
 	csResult.Format(_T("%d"), b);
 	this->ReadResult.SetWindowText(csResult);
@@ -280,6 +280,7 @@ void CListManagementDlg::OnBnClickedDeletebutton()
 		m_pacDataInfo->RemoveAll();
 		delete m_pacDataInfo;
 		m_pacDataInfo = nullptr;
+		CDataInfo::ResetItemNum();
 	}
 
 	CONTVALINVAL(IDC_DELETEBUTTON);

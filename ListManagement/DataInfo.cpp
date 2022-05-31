@@ -24,7 +24,7 @@ CDataInfo::CDataInfo()
 	m_eSex = ESex::MAN;
 	m_nHeight = 0;
 	m_nWeight = 0;
-	m_csFrom ="";
+	m_csFrom = "";
 
 }
 
@@ -37,7 +37,7 @@ CDataInfo::~CDataInfo()
 
 void CDataInfo::SetData(CString nId, CString csFirstName, CString csLastName, CString nAge, CString eSex, CString nHeight, CString nWeight, CString csFrom)
 {
-	
+
 	m_nId = _ttoi(nId);
 	m_csFirstName = csFirstName;
 	m_csLastName = csLastName;
@@ -51,7 +51,7 @@ void CDataInfo::SetData(CString nId, CString csFirstName, CString csLastName, CS
 	m_nHeight = _ttoi(nHeight);
 	m_nWeight = _ttoi(nWeight);
 	m_csFrom = csFrom;
-	
+
 	/*
 	m_tDataInfo.nId = _ttoi(nId);
 	m_tDataInfo.csFirstName = csFirstName;
@@ -72,16 +72,28 @@ void CDataInfo::SetData(CString nId, CString csFirstName, CString csLastName, CS
 void CDataInfo::SetData(TDataInfo tDataInfo)
 {
 	//m_tDataInfo = tDataInfo;
-	
+
 }
 
-void CDataInfo::SetData(CArray<CStringArray*>* CStringArrayList)
-{	
-	int b=6;
-	int** a{};
-	*a = nullptr;
-	*a = &b;
+void CDataInfo::SetData(CStringArray* CStringArray)
+{
+#define Item(i) CStringArray->ElementAt(i)
+
+	m_nId = _ttoi(Item(0));
+	m_csFirstName = Item(1);
+	m_csLastName = Item(2);
+	m_nAge = _ttoi(Item(3));
+	if (Item(4) == "’j")
+		m_eSex = ESex::MAN;
+	else if (Item(4) == "—")
+		m_eSex = ESex::WOMAN;
+	else
+		m_eSex = ESex::OTHER;
+	m_nHeight = _ttoi(Item(5));
+	m_nWeight = _ttoi(Item(6));
+	m_csFrom = Item(7);
 }
+
 
 void CDataInfo::GetData(int* nId, CString* csFirstName, CString* csLastName, int* nAge, ESex* eSex, int* nHeight, int* nWeight, CString* csFrom)
 {
@@ -104,8 +116,20 @@ void CDataInfo::GetData(TDataInfo* ptDataInfo)
 
 void CDataInfo::SetItemNum(int ItemNum)
 {
-	if(m_snItemNum == -1 && m_pacDataInfo == nullptr)
-	m_snItemNum = ItemNum;
+	if (m_snItemNum == -1 && (m_pacDataInfo == nullptr || m_pacDataInfo->GetCount() == 0))
+	{
+		m_snItemNum = ItemNum;
+	}
+}
+
+int CDataInfo::GetItemNum()
+{
+	return m_snItemNum;
+}
+
+void CDataInfo::ResetItemNum()
+{
+	m_snItemNum = -1;
 }
 
 CArray<CDataInfo*>* CDataInfo::Getm_pacDataInfo_h()
