@@ -220,15 +220,11 @@ void CListManagementDlg::OnBnClickedButton1()
 
 	CDataManagement cDataManagement;
 
-	int b = cDataManagement.ReadFileData(cReadPath);
+	int b = cDataManagement.ReadFileDataKK(cReadPath);
 	//int	b = cDataManagement.ReadFileDataKK(cReadPath);
 	CString csResult;
 	csResult.Format(_T("%d"), b);
 	this->ReadResult.SetWindowText(csResult);
-	int c = cDataManagement.GetCount();
-	CString csCount;
-	csCount.Format(_T("%d"), c);
-	this->Count.SetWindowText(csCount);
 	CONTVALINVAL(IDC_DELETEBUTTON);
 	CONTVALINVAL(IDC_BUTTON3);
 	CONTVALINVAL(IDC_BUTTON2);

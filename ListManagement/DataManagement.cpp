@@ -346,10 +346,7 @@ CString CDataManagement::Getm_csReadPath()
 	return m_csReadPath;
 }
 
-int CDataManagement::GetCount()
-{
-	return m_nCount;
-}
+
 
 
 //******************ŒBŠ|‚µ‘‚«***********************************

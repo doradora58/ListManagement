@@ -5,7 +5,7 @@
 #define SUCCESS 0 // 処理成功
 #define NO_CSV_DATA -3 // CSVデータがないためエラー
 #define NO_DATAINFO -4 // データ情報にデータがないためエラー
-
+#define CSV_FORMAT_ERROR -5 // csvファイルのフォーマットエラー
 
 // ボタンの有効／無効化
 #define CONTVALINVAL(id) \
