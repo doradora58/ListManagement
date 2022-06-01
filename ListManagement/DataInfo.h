@@ -54,13 +54,21 @@ public:
 
 	void SetData(TDataInfo tDataInfo);
 
-	void SetData(CArray<CStringArray*>* CStringArrayList);
+	void SetData(CStringArray* cstringarrayList);
 
 	void GetData(int* nId, CString* csFirstName, CString* csLastName, int* nAge, ESex* eSex, int* nHeight, int* nWeight, CString* csFrom);
 
 	void GetData(TDataInfo* ptDataInfo);
 
 	static void SetItemNum(int ItemNum);
+
+	static int GetItemNum();
+
+	static void ResetItemNum();
+
+//private:
+//	void SetItem();
+//public:
 
 	/// <summary>
 	/// m_pacDataInfoのポインタを取得する
@@ -89,8 +97,6 @@ public:
 
 	// 初めに読み込んだデータの一行目のカンマ数
 	static int m_snItemNum;
-
-
 
 private:
 
