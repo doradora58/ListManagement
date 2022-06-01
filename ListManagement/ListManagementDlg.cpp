@@ -118,6 +118,14 @@ BOOL CListManagementDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// 小さいアイコンの設定
 
 	// TODO: 初期化をここに追加します。
+	
+	CParam* cParam = new CParam;
+	CParam:: pParam = cParam;
+
+	std::string filePath = "..\\x64\\Debug\\config.ini";
+	//std::string filePath = "C:\\Users\\27114\\source\\repos\\ListManagement\\x64\\Debug\\config.ini";
+	std::string a = cParam->GetConfigString(filePath, "System", "WindowText");
+	cParam->m_csLogPath = a.c_str();
 	OnShowWindow();
 
 	CONTVALINVAL(IDC_DELETEBUTTON);

@@ -199,6 +199,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Library.cpp" />
     <ClCompile Include="ListDialog.cpp" />
     <ClCompile Include="DataInfo.cpp" />
     <ClCompile Include="DataManagement.cpp" />
