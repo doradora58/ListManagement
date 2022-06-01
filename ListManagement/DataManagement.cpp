@@ -177,8 +177,6 @@ int CDataManagement::ReadFileData(TCHAR cReadPath[MAX_PATH])
 			}
 		}
 
-		// ↓以降未完成
-
 		// CArray<CDataInfo>のインスタンスが作成されていれば、newしない。
 		if (m_pacDataInfo == nullptr)
 		{
@@ -186,57 +184,58 @@ int CDataManagement::ReadFileData(TCHAR cReadPath[MAX_PATH])
 			m_pacDataInfo->RemoveAll();
 		}
 
-		for (int I = 0; cFile.ReadString(csReadLineText); I++)
+		for (int I = 0; I < nRowNum; I++)
 		{
 			// CDataInfoインスタンスの作成
 			CDataInfo* cDataInfo = new CDataInfo();
 			m_pacDataInfo->Add(cDataInfo);
+
+			// 一行分の要素格納array
+			CStringArray* CStrArray = new CStringArray();
+			CStrArray->RemoveAll();
+
 			// 開始文字位置の初期化
 			int nStart = 0;
 			// カンマの文字位置
 			int nPos = -1;
+
 			// nPosをnStartから','までの文字数
-			nPos = csReadLineText.Find(',', nStart);
-
-			CStringArray* CStrArray = new CStringArray();
-			CStrArray->RemoveAll();
-
-			CString ReadData;
+			nPos = CSReadLineTexArray.ElementAt(I).Find(',', nStart);
 
 			// 一行分のカンマ区切りの要素を抜き出す
 			for (int i = 0; nPos > -1; i++)
 			{
-				ReadData = csReadLineText.Mid(nStart, nPos - nStart);
+				// 要素収納buffer
+				CString ReadData = "";
+
+				// nStartからnPos-nStart文字分切り出す
+				ReadData = CSReadLineTexArray.ElementAt(I).Mid(nStart, nPos - nStart);
+
+				// 開始文字位置をカンマの次に
 				nStart = nPos + 1;
+
 				// nPosを次のカンマ位置まで移動。カンマがない場合、nPosに-1を返す。
-				nPos = csReadLineText.Find(',', nStart);
+				nPos = CSReadLineTexArray.ElementAt(I).Find(',', nStart);
+
 				CStrArray->Add(ReadData);
 
+				// 最終要素
 				if (nPos == -1)
 				{
-					ReadData = csReadLineText.Mid(nStart);
+					ReadData = CSReadLineTexArray.ElementAt(I).Mid(nStart);
 					CStrArray->Add(ReadData);
 
 
 					CStringArrayList.Add(CStrArray);
 
-					//				m_pacDataInfo->ElementAt(I)->SetData(
+					cDataInfo->SetData(CStringArrayList.ElementAt(I));
 
-					cDataInfo->SetData(
-						CStringArrayList.ElementAt(I)->ElementAt(0),
-						CStringArrayList.ElementAt(I)->ElementAt(1),
-						CStringArrayList.ElementAt(I)->ElementAt(2),
-						CStringArrayList.ElementAt(I)->ElementAt(3),
-						CStringArrayList.ElementAt(I)->ElementAt(4),
-						CStringArrayList.ElementAt(I)->ElementAt(5),
-						CStringArrayList.ElementAt(I)->ElementAt(6),
-						CStringArrayList.ElementAt(I)->ElementAt(7));
-
+					CStringArrayList.ElementAt(I)->RemoveAll();
 					delete CStringArrayList.ElementAt(I);
+
 				}
 			}
 		}
-		cFile.Close();
 		return SUCCESS;
 	}
 	catch (int i)
@@ -434,6 +433,14 @@ int CDataManagement::ReadFileDataKK(TCHAR cReadPath[MAX_PATH])
 		// 改行コードを削除
 		CStr1.Replace(_T("\r\n"), _T(""));
 
+		// csvファイルフォーマット比較処理
+		int nCommaCount = this->CountCommaOcuurence(CStr1);
+		CDataInfo::SetItemNum(nCommaCount);
+		if (CDataInfo::m_snItemNum != nCommaCount)
+		{
+			return CSV_FORMAT_ERROR;
+		}
+
 		// カンマ区切りで分解用
 		int delimiterNum1 = 0;
 		int delimiterNum2 = 0;
@@ -487,15 +494,17 @@ int CDataManagement::ReadFileDataKK(TCHAR cReadPath[MAX_PATH])
 		CDataInfo* cDataInfo = new CDataInfo();
 		m_pacDataInfo->Add(cDataInfo);
 
-		cDataInfo->SetData(
-			CStringArrayList.ElementAt(i)->ElementAt(0),
-			CStringArrayList.ElementAt(i)->ElementAt(1),
-			CStringArrayList.ElementAt(i)->ElementAt(2),
-			CStringArrayList.ElementAt(i)->ElementAt(3),
-			CStringArrayList.ElementAt(i)->ElementAt(4),
-			CStringArrayList.ElementAt(i)->ElementAt(5),
-			CStringArrayList.ElementAt(i)->ElementAt(6),
-			CStringArrayList.ElementAt(i)->ElementAt(7));
+		//cDataInfo->SetData(
+		//	CStringArrayList.ElementAt(i)->ElementAt(0),
+		//	CStringArrayList.ElementAt(i)->ElementAt(1),
+		//	CStringArrayList.ElementAt(i)->ElementAt(2),
+		//	CStringArrayList.ElementAt(i)->ElementAt(3),
+		//	CStringArrayList.ElementAt(i)->ElementAt(4),
+		//	CStringArrayList.ElementAt(i)->ElementAt(5),
+		//	CStringArrayList.ElementAt(i)->ElementAt(6),
+		//	CStringArrayList.ElementAt(i)->ElementAt(7));
+
+		cDataInfo->SetData(CStringArrayList.ElementAt(i));
 
 		// CStringArrayの要素オブジェクトを破棄
 		CStringArray* pCStringArray = CStringArrayList.GetAt(i);
