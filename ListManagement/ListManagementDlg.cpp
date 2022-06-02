@@ -121,11 +121,9 @@ BOOL CListManagementDlg::OnInitDialog()
 	
 	CParam* cParam = new CParam;
 	CParam:: pParam = cParam;
-
-	std::string filePath = "..\\x64\\Debug\\config.ini";
-	//std::string filePath = "C:\\Users\\27114\\source\\repos\\ListManagement\\x64\\Debug\\config.ini";
-	std::string a = cParam->GetConfigString(filePath, "System", "WindowText");
+	std::string a = cParam->GetConfigString(LIST_MANGEMENT_INI_PATH, "Log", "LogPath");
 	cParam->m_csLogPath = a.c_str();
+	LOG(_T("Success Get Parameter of ListManagement.ini"), _T(__FILE__), __LINE__, _T(__FUNCTION__))
 	OnShowWindow();
 
 	CONTVALINVAL(IDC_DELETEBUTTON);

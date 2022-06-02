@@ -12,6 +12,8 @@
 #define NO_CSV_DATA -3 // CSVデータがないためエラー
 #define NO_DATAINFO -4 // データ情報にデータがないためエラー
 #define CSV_FORMAT_ERROR -5 // csvファイルのフォーマットエラー
+#define LIST_MANGEMENT_INI_PATH _T("..\\ListManagement\\Document\\ListManagement.ini")
+
 
 // ボタンの有効／無効化
 #define CONTVALINVAL(id) \
