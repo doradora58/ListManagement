@@ -118,6 +118,12 @@ BOOL CListManagementDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// 小さいアイコンの設定
 
 	// TODO: 初期化をここに追加します。
+	
+	CParam* cParam = new CParam;
+	CParam:: pParam = cParam;
+	std::string a = cParam->GetConfigString(LIST_MANGEMENT_INI_PATH, "Log", "LogPath");
+	cParam->m_csLogPath = a.c_str();
+	LOG(_T("Success Get Parameter of ListManagement.ini"), _T(__FILE__), __LINE__, _T(__FUNCTION__))
 	OnShowWindow();
 
 	CONTVALINVAL(IDC_DELETEBUTTON);
