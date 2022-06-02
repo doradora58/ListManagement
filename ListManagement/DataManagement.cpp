@@ -19,100 +19,6 @@ CDataManagement::~CDataManagement()
 
 }
 
-///// <summary>
-///// csvファイルの読み込み実行関数
-///// </summary>
-///// <param name="cReadPath">読み込みパス</param>
-///// <returns>0:成功　0以外:失敗</returns>
-//int CDataManagement::ReadFileData(TCHAR cReadPath[MAX_PATH])
-//{
-//
-//	// CArray<CDataInfo>のインスタンスが作成されていれば、newしない。
-//	if (m_pacDataInfo == nullptr)
-//	{
-//		m_pacDataInfo = new CArray<CDataInfo*>();
-//		m_pacDataInfo->RemoveAll();
-//	}
-//
-//	// 
-//	CString csReadPath = cReadPath;
-//	// インスタンスの生成
-//	CFileFind cFileFind;
-//
-//	// 入力ファイルが存在するか確認
-//	if (cFileFind.FindFile(csReadPath) == 0) // FindFile関数の戻り値が0以外で正常完了
-//	{
-//		return NOT_FOUND_FILE;
-//	}
-//
-//	CStdioFile cFile;
-//	// Readモードでファイルオープン
-//	cFile.Open(csReadPath, CFile::modeRead);
-//
-//	// 一行分テキスト読み込み
-//	CString csReadLineText;
-//
-//	CArray<CStringArray*> CStringArrayList;
-//	CStringArrayList.RemoveAll();
-//
-//	for (int I = 0; cFile.ReadString(csReadLineText); I++)
-//	{
-//		// CDataInfoインスタンスの作成
-//		CDataInfo* cDataInfo = new CDataInfo();
-//		m_pacDataInfo->Add(cDataInfo);
-//		// 開始文字位置の初期化
-//		int nStart = 0;
-//		// カンマの文字位置
-//		int nPos = -1;
-//		// nPosをnStartから','までの文字数
-//		nPos = csReadLineText.Find(',', nStart);
-//		// 読み込みデータの一時保存配列
-//
-//
-//		CStringArray* CStrArray = new CStringArray();
-//		CStrArray->RemoveAll();
-//
-//		CString ReadData;
-//
-//		// 一行分のカンマ区切りの要素を抜き出す
-//		for (int i = 0; nPos > -1; i++)
-//		{
-//
-//
-//			ReadData = csReadLineText.Mid(nStart, nPos - nStart);
-//			nStart = nPos + 1;
-//			// nPosを次のカンマ位置まで移動。カンマがない場合、nPosに-1を返す。
-//			nPos = csReadLineText.Find(',', nStart);
-//			CStrArray->Add(ReadData);
-//
-//			if (nPos == -1)
-//			{
-//				ReadData = csReadLineText.Mid(nStart);
-//				CStrArray->Add(ReadData);
-//
-//		
-//				CStringArrayList.Add(CStrArray);
-//
-//				//				m_pacDataInfo->ElementAt(I)->SetData(
-//
-//				cDataInfo->SetData(
-//					CStringArrayList.ElementAt(I)->ElementAt(0),
-//					CStringArrayList.ElementAt(I)->ElementAt(1),
-//					CStringArrayList.ElementAt(I)->ElementAt(2),
-//					CStringArrayList.ElementAt(I)->ElementAt(3),
-//					CStringArrayList.ElementAt(I)->ElementAt(4),
-//					CStringArrayList.ElementAt(I)->ElementAt(5),
-//					CStringArrayList.ElementAt(I)->ElementAt(6),
-//					CStringArrayList.ElementAt(I)->ElementAt(7));
-//
-//				delete CStringArrayList.ElementAt(I);
-//			}
-//		}
-//	}
-//	cFile.Close();
-//    return SUCCESS;
-//}
-
 /// <summary>
 /// csvファイルの読み込み実行関数
 /// </summary>
@@ -138,7 +44,7 @@ int CDataManagement::ReadFileData(TCHAR cReadPath[MAX_PATH])
 
 		CStdioFile cFile;
 		// Readモードでファイルオープン
-		cFile.Open(csReadPath, CFile::modeRead);
+		cFile.Open(csReadPath, CFile::modeRead | CFile::typeBinary);
 
 		// 一行分テキスト読み込みCArray
 		CArray<CString> CSReadLineTexArray;
@@ -171,7 +77,7 @@ int CDataManagement::ReadFileData(TCHAR cReadPath[MAX_PATH])
 				CDataInfo::SetItemNum(nCommaCount);
 			}
 			// i行目のカンマ数がm_snItemNumと等しいか比較
-			if (CDataInfo::m_snItemNum != nCommaCount)
+			if (CDataInfo::GetItemNum() != nCommaCount)
 			{
 				throw CSV_FORMAT_ERROR;
 			}
@@ -182,6 +88,8 @@ int CDataManagement::ReadFileData(TCHAR cReadPath[MAX_PATH])
 		{
 			m_pacDataInfo = new CArray<CDataInfo*>();
 			m_pacDataInfo->RemoveAll();
+
+
 		}
 
 		for (int I = 0; I < nRowNum; I++)
@@ -224,7 +132,6 @@ int CDataManagement::ReadFileData(TCHAR cReadPath[MAX_PATH])
 				{
 					ReadData = CSReadLineTexArray.ElementAt(I).Mid(nStart);
 					CStrArray->Add(ReadData);
-
 
 					CStringArrayList.Add(CStrArray);
 
@@ -368,7 +275,7 @@ int CDataManagement::ReadFileDataKK(TCHAR cReadPath[MAX_PATH])
 	//インスタンスの生成
 	CFile cFile;
 	// データ出力先ファイルをオープン
-	if (cFile.Open(csReadPath, CFile::modeReadWrite | CFile::shareDenyNone | CFile::modeCreate | CFile::modeNoTruncate) == FALSE)
+	if (cFile.Open(csReadPath, CFile::modeReadWrite | CFile::shareDenyNone | CFile::modeCreate | CFile::modeNoTruncate | CFile::typeBinary) == FALSE)
 	{
 		//　ファイルオープンに失敗
 		nRet = FILE_OPEN_FAILED;
@@ -435,7 +342,7 @@ int CDataManagement::ReadFileDataKK(TCHAR cReadPath[MAX_PATH])
 		// csvファイルフォーマット比較処理
 		int nCommaCount = this->CountCommaOcuurence(CStr1);
 		CDataInfo::SetItemNum(nCommaCount);
-		if (CDataInfo::m_snItemNum != nCommaCount)
+		if (CDataInfo::GetItemNum() != nCommaCount)
 		{
 			return CSV_FORMAT_ERROR;
 		}
@@ -493,23 +400,12 @@ int CDataManagement::ReadFileDataKK(TCHAR cReadPath[MAX_PATH])
 		CDataInfo* cDataInfo = new CDataInfo();
 		m_pacDataInfo->Add(cDataInfo);
 
-		//cDataInfo->SetData(
-		//	CStringArrayList.ElementAt(i)->ElementAt(0),
-		//	CStringArrayList.ElementAt(i)->ElementAt(1),
-		//	CStringArrayList.ElementAt(i)->ElementAt(2),
-		//	CStringArrayList.ElementAt(i)->ElementAt(3),
-		//	CStringArrayList.ElementAt(i)->ElementAt(4),
-		//	CStringArrayList.ElementAt(i)->ElementAt(5),
-		//	CStringArrayList.ElementAt(i)->ElementAt(6),
-		//	CStringArrayList.ElementAt(i)->ElementAt(7));
-
 		cDataInfo->SetData(CStringArrayList.ElementAt(i));
 
 		// CStringArrayの要素オブジェクトを破棄
 		CStringArray* pCStringArray = CStringArrayList.GetAt(i);
 		pCStringArray->RemoveAll();
 		delete pCStringArray;
-
 	}
 
 	CStringArrayList.RemoveAll();

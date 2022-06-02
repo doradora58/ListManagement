@@ -50,37 +50,41 @@ public:
 	/// </summary>
 	~CDataInfo();
 
-	void SetData(CString nId, CString csFirstName, CString csLastName, CString nAge, CString eSex, CString nHeight, CString nWeight, CString csFrom);
+	//void SetData(CString nId, CString csFirstName, CString csLastName, CString nAge, CString eSex, CString nHeight, CString nWeight, CString csFrom);
 
-	void SetData(TDataInfo tDataInfo);
+	//void SetData(TDataInfo tDataInfo);
 
+	// 
 	void SetData(CStringArray* cstringarrayList);
 
 	void GetData(int* nId, CString* csFirstName, CString* csLastName, int* nAge, ESex* eSex, int* nHeight, int* nWeight, CString* csFrom);
 
 	void GetData(TDataInfo* ptDataInfo);
 
+	// m_snItemNumのSet関数
 	static void SetItemNum(int ItemNum);
 
+	// m_snItemNumのGet関数
 	static int GetItemNum();
 
+	//  m_snItemNumを初期化する
 	static void ResetItemNum();
 
 //private:
 //	void SetItem();
 //public:
 
-	/// <summary>
-	/// m_pacDataInfoのポインタを取得する
-	/// </summary>
-	/// <returns>m_pacDataInfo</returns>
-	CArray<CDataInfo*>* Getm_pacDataInfo_h();
+	///// <summary>
+	///// m_pacDataInfoのポインタを取得する
+	///// </summary>
+	///// <returns>m_pacDataInfo</returns>
+	//CArray<CDataInfo*>* Getm_pacDataInfo_h();
 
-	/// <summary>
-	/// m_pacDataInfoのポインタを
-	/// </summary>
-	/// <param name="pacDataInfo"></param>
-	void Setm_pacDataInfo_h(CArray<CDataInfo*>* pacDataInfo);
+	///// <summary>
+	///// m_pacDataInfoのポインタを
+	///// </summary>
+	///// <param name="pacDataInfo"></param>
+	//void Setm_pacDataInfo_h(CArray<CDataInfo*>* pacDataInfo);
 
 	//TDataInfo m_tDataInfo;
 
@@ -93,13 +97,16 @@ public:
 	int m_nWeight; // 体重
 	CString m_csFrom; // 出身地
 
-	CArray<CDataInfo*>* m_pacDataInfo_h; // CDataInfo*型CArrayのポインタ
+private:
+	static CString* m_cspItem; // csvデータ項目名配列
 
+	//CArray<CDataInfo*>* m_pacDataInfo_h; // CDataInfo*型CArrayのポインタ
+
+private:
 	// 初めに読み込んだデータの一行目のカンマ数
 	static int m_snItemNum;
 
-private:
-
-	// メンバ変数にセットする。
-	void SetMember();
+//private:
+//	// メンバ変数にセットする。
+//	void SetMember();
 };

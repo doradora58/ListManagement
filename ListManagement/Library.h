@@ -21,6 +21,6 @@ int (*funca)(int nIndex, TCHAR szLogText[100], TCHAR szSourceFileName[_MAX_FNAME
 (func = (int (*)(char cDirPath[MAX_PATH], char cLogFileName[_MAX_FNAME], int& nIndex, int nFormatType))GetProcAddress(hDLL, "SetOutputDirPath"));\
 (funca = (int (*)(int nIndex, TCHAR szLogText[100], TCHAR szSourceFileName[_MAX_FNAME], int nSourceLine, TCHAR szFunctionName[_MAX_FNAME]))GetProcAddress(hDLL, "WriteLog"));\
 int i=0;\
-func(_T("C:\\Users\\27114\\source\\repos\\ListManagement\\ListManagement\\Document\\Input"), _T("ListManagement"), i, 0);\
+func(_T("C:\\Users\\yyama\\source\\repos\\ListManagement\\ListManagement\\Document\\Output"), _T("ListManagement"), i, 0);\
 funca(i, LogText, SourceFileName,SourceLine,FunctionName);\
 FreeLibrary(hDLL);};
